@@ -1,0 +1,1733 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/EntitiesConfiguration",
+  "definitions": {
+    "EntitiesConfiguration": {
+      "type": "object",
+      "properties": {
+        "application": {
+          "$ref": "#/definitions/IApplication"
+        },
+        "defaultColumns": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/EntitySchemaColumnOptions"
+          }
+        },
+        "tables": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/EntitySchemaConfiguration"
+          }
+        }
+      },
+      "required": [
+        "application",
+        "tables"
+      ],
+      "additionalProperties": false
+    },
+    "IApplication": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "endpoint": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EntitySchemaColumnOptions": {
+      "type": "object",
+      "properties": {
+        "spatialFeatureType": {
+          "type": "string",
+          "description": "Column type's feature type. Geometry, Point, Polygon, etc."
+        },
+        "srid": {
+          "type": "number",
+          "description": "Column type's SRID. Spatial Reference ID or EPSG code."
+        },
+        "primary": {
+          "type": "boolean",
+          "description": "Indicates if this column is a primary column."
+        },
+        "objectId": {
+          "type": "boolean",
+          "description": "Indicates if this column is of type ObjectID"
+        },
+        "createDate": {
+          "type": "boolean",
+          "description": "Indicates if this column is a created date column."
+        },
+        "updateDate": {
+          "type": "boolean",
+          "description": "Indicates if this column is an update date column."
+        },
+        "deleteDate": {
+          "type": "boolean",
+          "description": "Indicates if this column is a delete date column."
+        },
+        "version": {
+          "type": "boolean",
+          "description": "Indicates if this column is a version column."
+        },
+        "treeChildrenCount": {
+          "type": "boolean",
+          "description": "Indicates if this column is a treeChildrenCount column."
+        },
+        "treeLevel": {
+          "type": "boolean",
+          "description": "Indicates if this column is a treeLevel column."
+        },
+        "type": {
+          "$ref": "#/definitions/ColumnType",
+          "description": "Column type. Must be one of the value from the ColumnTypes class."
+        },
+        "name": {
+          "type": "string",
+          "description": "Column name in the database."
+        },
+        "length": {
+          "type": [
+            "string",
+            "number"
+          ],
+          "description": "Column type's length. For example type = \"string\" and length = 100 means that ORM will create a column with type varchar(100)."
+        },
+        "width": {
+          "type": "number",
+          "description": "Column type's display width. Used only on some column types in MySQL. For example, INT(4) specifies an INT with a display width of four digits."
+        },
+        "nullable": {
+          "type": "boolean",
+          "description": "Indicates if column's value can be set to NULL."
+        },
+        "readonly": {
+          "type": "boolean",
+          "description": "Indicates if column value is not updated by \"save\" operation. It means you'll be able to write this value only when you first time insert the object. Default value is \"false\".",
+          "deprecated": "Please use the `update` option instead.  Careful, it takes\nthe opposite value to readonly."
+        },
+        "update": {
+          "type": "boolean",
+          "description": "Indicates if column value is updated by \"save\" operation. If false you'll be able to write this value only when you first time insert the object. Default value is \"true\"."
+        },
+        "select": {
+          "type": "boolean",
+          "description": "Indicates if column is always selected by QueryBuilder and find operations. Default value is \"true\"."
+        },
+        "insert": {
+          "type": "boolean",
+          "description": "Indicates if column is inserted by default. Default value is \"true\"."
+        },
+        "generated": {
+          "type": [
+            "boolean",
+            "string"
+          ],
+          "enum": [
+            true,
+            "increment",
+            "uuid",
+            "rowid"
+          ],
+          "description": "Specifies if this column will use AUTO_INCREMENT or not (e.g. generated number)."
+        },
+        "unique": {
+          "type": "boolean",
+          "description": "Specifies if column's value must be unique or not."
+        },
+        "columnDefinition": {
+          "type": "string",
+          "description": "Extra column definition. Should be used only in emergency situations. Note that if you'll use this property auto schema generation will not work properly anymore. Avoid using it."
+        },
+        "comment": {
+          "type": "string",
+          "description": "Column comment."
+        },
+        "default": {
+          "description": "Default database value."
+        },
+        "onUpdate": {
+          "type": "string",
+          "description": "ON UPDATE trigger. Works only for MySQL."
+        },
+        "precision": {
+          "type": "number",
+          "description": "The precision for a decimal (exact numeric) column (applies only for decimal column), which is the maximum number of digits that are stored for the values."
+        },
+        "scale": {
+          "type": "number",
+          "description": "The scale for a decimal (exact numeric) column (applies only for decimal column), which represents the number of digits to the right of the decimal point and must not be greater than precision."
+        },
+        "zerofill": {
+          "type": "boolean",
+          "description": "Puts ZEROFILL attribute on to numeric column. Works only for MySQL. If you specify ZEROFILL for a numeric column, MySQL automatically adds the UNSIGNED attribute to the column"
+        },
+        "unsigned": {
+          "type": "boolean",
+          "description": "Puts UNSIGNED attribute on to numeric column. Works only for MySQL."
+        },
+        "charset": {
+          "type": "string",
+          "description": "Defines a column character set. Not supported by all database types."
+        },
+        "collation": {
+          "type": "string",
+          "description": "Defines a column collation."
+        },
+        "enum": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {}
+            },
+            {}
+          ],
+          "description": "Array of possible enumerated values."
+        },
+        "enumName": {
+          "type": "string",
+          "description": "Exact name of enum"
+        },
+        "asExpression": {
+          "type": "string",
+          "description": "Generated column expression."
+        },
+        "generatedType": {
+          "type": "string",
+          "enum": [
+            "VIRTUAL",
+            "STORED"
+          ],
+          "description": "Generated column type."
+        },
+        "hstoreType": {
+          "type": "string",
+          "enum": [
+            "object",
+            "string"
+          ],
+          "description": "Return type of HSTORE column. Returns value as string or as object."
+        },
+        "array": {
+          "type": "boolean",
+          "description": "Indicates if this column is an array. Can be simply set to true or array length can be specified. Supported only by postgres."
+        },
+        "primaryKeyConstraintName": {
+          "type": "string",
+          "description": "Name of the primary key constraint."
+        },
+        "nativeType": {
+          "type": "string"
+        },
+        "templateName": {
+          "type": "string",
+          "description": "customtemplate"
+        },
+        "class": {
+          "type": "string"
+        },
+        "minLength": {
+          "type": "number"
+        },
+        "maxLength": {
+          "type": "number"
+        },
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        },
+        "label18n": {
+          "type": "string"
+        },
+        "order": {
+          "type": "number"
+        },
+        "sortable": {
+          "type": "boolean"
+        },
+        "filterable": {
+          "type": "boolean"
+        },
+        "filteringKeys": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "path": {
+          "type": "string"
+        },
+        "meta": {},
+        "hidden": {
+          "type": "boolean"
+        },
+        "requiredTrue": {
+          "type": "boolean"
+        },
+        "pipe": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "value": {}
+            },
+            "required": [
+              "text",
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "ColumnType": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/WithPrecisionColumnType"
+        },
+        {
+          "$ref": "#/definitions/WithLengthColumnType"
+        },
+        {
+          "$ref": "#/definitions/WithWidthColumnType"
+        },
+        {
+          "$ref": "#/definitions/SpatialColumnType"
+        },
+        {
+          "$ref": "#/definitions/SimpleColumnType"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "prototype": {
+              "type": "object",
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "prototype"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "prototype": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "prototype"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "prototype": {
+              "type": "object",
+              "additionalProperties": false
+            },
+            "MAX_VALUE": {
+              "type": "number"
+            },
+            "MIN_VALUE": {
+              "type": "number"
+            },
+            "NaN": {
+              "type": "number"
+            },
+            "NEGATIVE_INFINITY": {
+              "type": "number"
+            },
+            "POSITIVE_INFINITY": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "prototype",
+            "MAX_VALUE",
+            "MIN_VALUE",
+            "NaN",
+            "NEGATIVE_INFINITY",
+            "POSITIVE_INFINITY"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "prototype": {
+              "type": "object",
+              "properties": {
+                "length": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "length"
+              ],
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "prototype"
+          ],
+          "additionalProperties": false
+        }
+      ],
+      "description": "Any column type column can be."
+    },
+    "WithPrecisionColumnType": {
+      "type": "string",
+      "enum": [
+        "float",
+        "double",
+        "dec",
+        "decimal",
+        "smalldecimal",
+        "fixed",
+        "numeric",
+        "real",
+        "double precision",
+        "number",
+        "datetime",
+        "datetime2",
+        "datetimeoffset",
+        "time",
+        "time with time zone",
+        "time without time zone",
+        "timestamp",
+        "timestamp without time zone",
+        "timestamp with time zone",
+        "timestamp with local time zone"
+      ],
+      "description": "Column types where precision and scale properties are used."
+    },
+    "WithLengthColumnType": {
+      "type": "string",
+      "enum": [
+        "character varying",
+        "varying character",
+        "char varying",
+        "nvarchar",
+        "national varchar",
+        "character",
+        "native character",
+        "varchar",
+        "char",
+        "nchar",
+        "national char",
+        "varchar2",
+        "nvarchar2",
+        "alphanum",
+        "shorttext",
+        "raw",
+        "binary",
+        "varbinary",
+        "string"
+      ],
+      "description": "Column types where column length is used."
+    },
+    "WithWidthColumnType": {
+      "type": "string",
+      "enum": [
+        "tinyint",
+        "smallint",
+        "mediumint",
+        "int",
+        "bigint"
+      ]
+    },
+    "SpatialColumnType": {
+      "type": "string",
+      "enum": [
+        "geometry",
+        "geography",
+        "st_geometry",
+        "st_point"
+      ],
+      "description": "Column types where spatial properties are used."
+    },
+    "SimpleColumnType": {
+      "type": "string",
+      "enum": [
+        "simple-array",
+        "simple-json",
+        "simple-enum",
+        "int2",
+        "integer",
+        "int4",
+        "int8",
+        "int64",
+        "unsigned big int",
+        "float",
+        "float4",
+        "float8",
+        "float64",
+        "smallmoney",
+        "money",
+        "boolean",
+        "bool",
+        "tinyblob",
+        "tinytext",
+        "mediumblob",
+        "mediumtext",
+        "blob",
+        "text",
+        "ntext",
+        "citext",
+        "hstore",
+        "longblob",
+        "longtext",
+        "alphanum",
+        "shorttext",
+        "bytes",
+        "bytea",
+        "long",
+        "raw",
+        "long raw",
+        "bfile",
+        "clob",
+        "nclob",
+        "image",
+        "timetz",
+        "timestamptz",
+        "timestamp with local time zone",
+        "smalldatetime",
+        "date",
+        "interval year to month",
+        "interval day to second",
+        "interval",
+        "year",
+        "seconddate",
+        "point",
+        "line",
+        "lseg",
+        "box",
+        "circle",
+        "path",
+        "polygon",
+        "geography",
+        "geometry",
+        "linestring",
+        "multipoint",
+        "multilinestring",
+        "multipolygon",
+        "geometrycollection",
+        "st_geometry",
+        "st_point",
+        "int4range",
+        "int8range",
+        "numrange",
+        "tsrange",
+        "tstzrange",
+        "daterange",
+        "enum",
+        "set",
+        "cidr",
+        "inet",
+        "macaddr",
+        "bit",
+        "bit varying",
+        "varbit",
+        "tsvector",
+        "tsquery",
+        "uuid",
+        "xml",
+        "json",
+        "jsonb",
+        "varbinary",
+        "hierarchyid",
+        "sql_variant",
+        "rowid",
+        "urowid",
+        "uniqueidentifier",
+        "rowversion",
+        "array",
+        "cube",
+        "ltree"
+      ],
+      "description": "All other regular column types."
+    },
+    "EntitySchemaConfiguration": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Entity name."
+        },
+        "tableName": {
+          "type": "string",
+          "description": "Table name."
+        },
+        "database": {
+          "type": "string",
+          "description": "Database name. Used in MySql and Sql Server."
+        },
+        "schema": {
+          "type": "string",
+          "description": "Schema name. Used in Postgres and Sql Server."
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "regular",
+            "view",
+            "junction",
+            "closure",
+            "closure-junction",
+            "entity-child"
+          ],
+          "description": "Table type."
+        },
+        "orderBy": {
+          "type": "object",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string",
+                "const": "ASC"
+              },
+              {
+                "type": "string",
+                "const": "DESC"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "order": {
+                    "type": "string",
+                    "enum": [
+                      "ASC",
+                      "DESC"
+                    ]
+                  },
+                  "nulls": {
+                    "type": "string",
+                    "enum": [
+                      "NULLS FIRST",
+                      "NULLS LAST"
+                    ]
+                  }
+                },
+                "required": [
+                  "order"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "description": "Specifies a property name by which queries will perform ordering by default when fetching rows."
+        },
+        "columns": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/EntitySchemaColumnOptions"
+          },
+          "description": "Entity column's options."
+        },
+        "relations": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/EntitySchemaRelationOptions"
+          },
+          "description": "Entity relation's options."
+        },
+        "relationIds": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/EntitySchemaRelationIdOptions"
+          },
+          "description": "Entity relation id options."
+        },
+        "indices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EntitySchemaIndexOptions"
+          },
+          "description": "Entity indices options."
+        },
+        "uniques": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EntitySchemaUniqueOptions"
+          },
+          "description": "Entity uniques options."
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EntitySchemaCheckOptions"
+          },
+          "description": "Entity check options."
+        },
+        "exclusions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EntitySchemaExclusionOptions"
+          },
+          "description": "Entity exclusion options."
+        },
+        "synchronize": {
+          "type": "boolean",
+          "description": "Indicates if schema synchronization is enabled or disabled for this entity. If it will be set to false then schema sync will and migrations ignore this entity. By default schema synchronization is enabled for all entities."
+        },
+        "withoutRowid": {
+          "type": "boolean",
+          "description": "If set to 'true' this option disables Sqlite's default behaviour of secretly creating an integer primary key column named 'rowid' on table creation."
+        },
+        "endpoint": {
+          "type": "string"
+        },
+        "forms": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "identifier": {
+                "type": "string"
+              },
+              "action": {
+                "type": "string"
+              },
+              "kind": {
+                "$ref": "#/definitions/FormKind"
+              },
+              "meta": {},
+              "method": {
+                "$ref": "#/definitions/FormMethod"
+              },
+              "isArray": {
+                "type": "boolean"
+              },
+              "arrayPath": {
+                "type": "string"
+              },
+              "rows": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "order": {
+                      "type": "number"
+                    },
+                    "class": {
+                      "type": "string"
+                    },
+                    "fields": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "primary": {
+                                "type": "boolean",
+                                "description": "Indicates if this column is a primary column."
+                              },
+                              "objectId": {
+                                "type": "boolean",
+                                "description": "Indicates if this column is of type ObjectID"
+                              },
+                              "createDate": {
+                                "type": "boolean",
+                                "description": "Indicates if this column is a created date column."
+                              },
+                              "updateDate": {
+                                "type": "boolean",
+                                "description": "Indicates if this column is an update date column."
+                              },
+                              "deleteDate": {
+                                "type": "boolean",
+                                "description": "Indicates if this column is a delete date column."
+                              },
+                              "version": {
+                                "type": "boolean",
+                                "description": "Indicates if this column is a version column."
+                              },
+                              "treeChildrenCount": {
+                                "type": "boolean",
+                                "description": "Indicates if this column is a treeChildrenCount column."
+                              },
+                              "treeLevel": {
+                                "type": "boolean",
+                                "description": "Indicates if this column is a treeLevel column."
+                              },
+                              "type": {
+                                "$ref": "#/definitions/ColumnType",
+                                "description": "Column type. Must be one of the value from the ColumnTypes class."
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Column name in the database."
+                              },
+                              "length": {
+                                "type": [
+                                  "string",
+                                  "number"
+                                ],
+                                "description": "Column type's length. For example type = \"string\" and length = 100 means that ORM will create a column with type varchar(100)."
+                              },
+                              "width": {
+                                "type": "number",
+                                "description": "Column type's display width. Used only on some column types in MySQL. For example, INT(4) specifies an INT with a display width of four digits."
+                              },
+                              "nullable": {
+                                "type": "boolean",
+                                "description": "Indicates if column's value can be set to NULL."
+                              },
+                              "readonly": {
+                                "type": "boolean",
+                                "description": "Indicates if column value is not updated by \"save\" operation. It means you'll be able to write this value only when you first time insert the object. Default value is \"false\".",
+                                "deprecated": "Please use the `update` option instead.  Careful, it takes\nthe opposite value to readonly."
+                              },
+                              "update": {
+                                "type": "boolean",
+                                "description": "Indicates if column value is updated by \"save\" operation. If false you'll be able to write this value only when you first time insert the object. Default value is \"true\"."
+                              },
+                              "select": {
+                                "type": "boolean",
+                                "description": "Indicates if column is always selected by QueryBuilder and find operations. Default value is \"true\"."
+                              },
+                              "insert": {
+                                "type": "boolean",
+                                "description": "Indicates if column is inserted by default. Default value is \"true\"."
+                              },
+                              "generated": {
+                                "type": [
+                                  "boolean",
+                                  "string"
+                                ],
+                                "enum": [
+                                  true,
+                                  "increment",
+                                  "uuid",
+                                  "rowid"
+                                ],
+                                "description": "Specifies if this column will use AUTO_INCREMENT or not (e.g. generated number)."
+                              },
+                              "unique": {
+                                "type": "boolean",
+                                "description": "Specifies if column's value must be unique or not."
+                              },
+                              "columnDefinition": {
+                                "type": "string",
+                                "description": "Extra column definition. Should be used only in emergency situations. Note that if you'll use this property auto schema generation will not work properly anymore. Avoid using it."
+                              },
+                              "comment": {
+                                "type": "string",
+                                "description": "Column comment."
+                              },
+                              "default": {
+                                "description": "Default database value."
+                              },
+                              "onUpdate": {
+                                "type": "string",
+                                "description": "ON UPDATE trigger. Works only for MySQL."
+                              },
+                              "precision": {
+                                "type": "number",
+                                "description": "The precision for a decimal (exact numeric) column (applies only for decimal column), which is the maximum number of digits that are stored for the values."
+                              },
+                              "scale": {
+                                "type": "number",
+                                "description": "The scale for a decimal (exact numeric) column (applies only for decimal column), which represents the number of digits to the right of the decimal point and must not be greater than precision."
+                              },
+                              "zerofill": {
+                                "type": "boolean",
+                                "description": "Puts ZEROFILL attribute on to numeric column. Works only for MySQL. If you specify ZEROFILL for a numeric column, MySQL automatically adds the UNSIGNED attribute to the column"
+                              },
+                              "unsigned": {
+                                "type": "boolean",
+                                "description": "Puts UNSIGNED attribute on to numeric column. Works only for MySQL."
+                              },
+                              "charset": {
+                                "type": "string",
+                                "description": "Defines a column character set. Not supported by all database types."
+                              },
+                              "collation": {
+                                "type": "string",
+                                "description": "Defines a column collation."
+                              },
+                              "enum": {
+                                "anyOf": [
+                                  {
+                                    "type": "array",
+                                    "items": {}
+                                  },
+                                  {}
+                                ],
+                                "description": "Array of possible enumerated values."
+                              },
+                              "enumName": {
+                                "type": "string",
+                                "description": "Exact name of enum"
+                              },
+                              "asExpression": {
+                                "type": "string",
+                                "description": "Generated column expression."
+                              },
+                              "generatedType": {
+                                "type": "string",
+                                "enum": [
+                                  "VIRTUAL",
+                                  "STORED"
+                                ],
+                                "description": "Generated column type."
+                              },
+                              "hstoreType": {
+                                "type": "string",
+                                "enum": [
+                                  "object",
+                                  "string"
+                                ],
+                                "description": "Return type of HSTORE column. Returns value as string or as object."
+                              },
+                              "array": {
+                                "type": "boolean",
+                                "description": "Indicates if this column is an array. Can be simply set to true or array length can be specified. Supported only by postgres."
+                              },
+                              "primaryKeyConstraintName": {
+                                "type": "string",
+                                "description": "Name of the primary key constraint."
+                              },
+                              "nativeType": {
+                                "type": "string"
+                              },
+                              "templateName": {
+                                "type": "string",
+                                "description": "customtemplate"
+                              },
+                              "class": {
+                                "type": "string"
+                              },
+                              "minLength": {
+                                "type": "number"
+                              },
+                              "maxLength": {
+                                "type": "number"
+                              },
+                              "min": {
+                                "type": "number"
+                              },
+                              "max": {
+                                "type": "number"
+                              },
+                              "label18n": {
+                                "type": "string"
+                              },
+                              "order": {
+                                "type": "number"
+                              },
+                              "sortable": {
+                                "type": "boolean"
+                              },
+                              "filterable": {
+                                "type": "boolean"
+                              },
+                              "filteringKeys": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "path": {
+                                "type": "string"
+                              },
+                              "meta": {},
+                              "hidden": {
+                                "type": "boolean"
+                              },
+                              "requiredTrue": {
+                                "type": "boolean"
+                              },
+                              "pipe": {
+                                "type": "string"
+                              },
+                              "options": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "text": {
+                                      "type": "string"
+                                    },
+                                    "value": {}
+                                  },
+                                  "required": [
+                                    "text",
+                                    "value"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              },
+                              "spatialFeatureType": {
+                                "type": "string",
+                                "description": "Column type's feature type. Geometry, Point, Polygon, etc."
+                              },
+                              "srid": {
+                                "type": "number",
+                                "description": "Column type's SRID. Spatial Reference ID or EPSG code."
+                              }
+                            },
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "fields"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "name",
+              "identifier",
+              "action",
+              "kind",
+              "method",
+              "rows"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "tables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "class": {
+                "type": "string"
+              },
+              "actions": {
+                "type": "object",
+                "properties": {
+                  "delete": {
+                    "type": "boolean"
+                  },
+                  "create": {
+                    "type": "boolean"
+                  },
+                  "update": {
+                    "type": "boolean"
+                  },
+                  "details": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "delete",
+                  "create",
+                  "update",
+                  "details"
+                ],
+                "additionalProperties": false
+              },
+              "columns": {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "primary": {
+                          "type": "boolean",
+                          "description": "Indicates if this column is a primary column."
+                        },
+                        "objectId": {
+                          "type": "boolean",
+                          "description": "Indicates if this column is of type ObjectID"
+                        },
+                        "createDate": {
+                          "type": "boolean",
+                          "description": "Indicates if this column is a created date column."
+                        },
+                        "updateDate": {
+                          "type": "boolean",
+                          "description": "Indicates if this column is an update date column."
+                        },
+                        "deleteDate": {
+                          "type": "boolean",
+                          "description": "Indicates if this column is a delete date column."
+                        },
+                        "version": {
+                          "type": "boolean",
+                          "description": "Indicates if this column is a version column."
+                        },
+                        "treeChildrenCount": {
+                          "type": "boolean",
+                          "description": "Indicates if this column is a treeChildrenCount column."
+                        },
+                        "treeLevel": {
+                          "type": "boolean",
+                          "description": "Indicates if this column is a treeLevel column."
+                        },
+                        "type": {
+                          "$ref": "#/definitions/ColumnType",
+                          "description": "Column type. Must be one of the value from the ColumnTypes class."
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Column name in the database."
+                        },
+                        "length": {
+                          "type": [
+                            "string",
+                            "number"
+                          ],
+                          "description": "Column type's length. For example type = \"string\" and length = 100 means that ORM will create a column with type varchar(100)."
+                        },
+                        "width": {
+                          "type": "number",
+                          "description": "Column type's display width. Used only on some column types in MySQL. For example, INT(4) specifies an INT with a display width of four digits."
+                        },
+                        "nullable": {
+                          "type": "boolean",
+                          "description": "Indicates if column's value can be set to NULL."
+                        },
+                        "readonly": {
+                          "type": "boolean",
+                          "description": "Indicates if column value is not updated by \"save\" operation. It means you'll be able to write this value only when you first time insert the object. Default value is \"false\".",
+                          "deprecated": "Please use the `update` option instead.  Careful, it takes\nthe opposite value to readonly."
+                        },
+                        "update": {
+                          "type": "boolean",
+                          "description": "Indicates if column value is updated by \"save\" operation. If false you'll be able to write this value only when you first time insert the object. Default value is \"true\"."
+                        },
+                        "select": {
+                          "type": "boolean",
+                          "description": "Indicates if column is always selected by QueryBuilder and find operations. Default value is \"true\"."
+                        },
+                        "insert": {
+                          "type": "boolean",
+                          "description": "Indicates if column is inserted by default. Default value is \"true\"."
+                        },
+                        "generated": {
+                          "type": [
+                            "boolean",
+                            "string"
+                          ],
+                          "enum": [
+                            true,
+                            "increment",
+                            "uuid",
+                            "rowid"
+                          ],
+                          "description": "Specifies if this column will use AUTO_INCREMENT or not (e.g. generated number)."
+                        },
+                        "unique": {
+                          "type": "boolean",
+                          "description": "Specifies if column's value must be unique or not."
+                        },
+                        "columnDefinition": {
+                          "type": "string",
+                          "description": "Extra column definition. Should be used only in emergency situations. Note that if you'll use this property auto schema generation will not work properly anymore. Avoid using it."
+                        },
+                        "comment": {
+                          "type": "string",
+                          "description": "Column comment."
+                        },
+                        "default": {
+                          "description": "Default database value."
+                        },
+                        "onUpdate": {
+                          "type": "string",
+                          "description": "ON UPDATE trigger. Works only for MySQL."
+                        },
+                        "precision": {
+                          "type": "number",
+                          "description": "The precision for a decimal (exact numeric) column (applies only for decimal column), which is the maximum number of digits that are stored for the values."
+                        },
+                        "scale": {
+                          "type": "number",
+                          "description": "The scale for a decimal (exact numeric) column (applies only for decimal column), which represents the number of digits to the right of the decimal point and must not be greater than precision."
+                        },
+                        "zerofill": {
+                          "type": "boolean",
+                          "description": "Puts ZEROFILL attribute on to numeric column. Works only for MySQL. If you specify ZEROFILL for a numeric column, MySQL automatically adds the UNSIGNED attribute to the column"
+                        },
+                        "unsigned": {
+                          "type": "boolean",
+                          "description": "Puts UNSIGNED attribute on to numeric column. Works only for MySQL."
+                        },
+                        "charset": {
+                          "type": "string",
+                          "description": "Defines a column character set. Not supported by all database types."
+                        },
+                        "collation": {
+                          "type": "string",
+                          "description": "Defines a column collation."
+                        },
+                        "enum": {
+                          "anyOf": [
+                            {
+                              "type": "array",
+                              "items": {}
+                            },
+                            {}
+                          ],
+                          "description": "Array of possible enumerated values."
+                        },
+                        "enumName": {
+                          "type": "string",
+                          "description": "Exact name of enum"
+                        },
+                        "asExpression": {
+                          "type": "string",
+                          "description": "Generated column expression."
+                        },
+                        "generatedType": {
+                          "type": "string",
+                          "enum": [
+                            "VIRTUAL",
+                            "STORED"
+                          ],
+                          "description": "Generated column type."
+                        },
+                        "hstoreType": {
+                          "type": "string",
+                          "enum": [
+                            "object",
+                            "string"
+                          ],
+                          "description": "Return type of HSTORE column. Returns value as string or as object."
+                        },
+                        "array": {
+                          "type": "boolean",
+                          "description": "Indicates if this column is an array. Can be simply set to true or array length can be specified. Supported only by postgres."
+                        },
+                        "primaryKeyConstraintName": {
+                          "type": "string",
+                          "description": "Name of the primary key constraint."
+                        },
+                        "nativeType": {
+                          "type": "string"
+                        },
+                        "templateName": {
+                          "type": "string",
+                          "description": "customtemplate"
+                        },
+                        "class": {
+                          "type": "string"
+                        },
+                        "minLength": {
+                          "type": "number"
+                        },
+                        "maxLength": {
+                          "type": "number"
+                        },
+                        "min": {
+                          "type": "number"
+                        },
+                        "max": {
+                          "type": "number"
+                        },
+                        "label18n": {
+                          "type": "string"
+                        },
+                        "order": {
+                          "type": "number"
+                        },
+                        "sortable": {
+                          "type": "boolean"
+                        },
+                        "filterable": {
+                          "type": "boolean"
+                        },
+                        "filteringKeys": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "meta": {},
+                        "hidden": {
+                          "type": "boolean"
+                        },
+                        "requiredTrue": {
+                          "type": "boolean"
+                        },
+                        "pipe": {
+                          "type": "string"
+                        },
+                        "options": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "text": {
+                                "type": "string"
+                              },
+                              "value": {}
+                            },
+                            "required": [
+                              "text",
+                              "value"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "spatialFeatureType": {
+                          "type": "string",
+                          "description": "Column type's feature type. Geometry, Point, Polygon, etc."
+                        },
+                        "srid": {
+                          "type": "number",
+                          "description": "Column type's SRID. Spatial Reference ID or EPSG code."
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                }
+              }
+            },
+            "required": [
+              "columns"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "setDefaultColumns": {
+          "type": "boolean"
+        },
+        "autoBuild": {
+          "type": "object",
+          "properties": {
+            "forms": {
+              "type": "boolean"
+            },
+            "tables": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        },
+        "meta": {}
+      },
+      "required": [
+        "columns"
+      ],
+      "additionalProperties": false
+    },
+    "EntitySchemaRelationOptions": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "string",
+          "description": "Indicates with which entity this relation is made."
+        },
+        "type": {
+          "$ref": "#/definitions/RelationType",
+          "description": "Type of relation. Can be one of the value of the RelationTypes class."
+        },
+        "inverseSide": {
+          "type": "string",
+          "description": "Inverse side of the relation."
+        },
+        "lazy": {
+          "type": "boolean",
+          "description": "Indicates if this relation will be lazily loaded."
+        },
+        "eager": {
+          "type": "boolean",
+          "description": "Indicates if this relation will be eagerly loaded."
+        },
+        "persistence": {
+          "type": "boolean",
+          "description": "Indicates if persistence is enabled for the relation. By default its enabled, but if you want to avoid any changes in the relation to be reflected in the database you can disable it. If its disabled you can only change a relation from inverse side of a relation or using relation query builder functionality. This is useful for performance optimization since its disabling avoid multiple extra queries during entity save."
+        },
+        "primary": {
+          "type": "boolean",
+          "description": "Indicates if this relation will be a primary key. Can be used only for many-to-one and owner one-to-one relations."
+        },
+        "createForeignKeyConstraints": {
+          "type": "boolean",
+          "description": "Indicates whether foreign key constraints will be created for join columns. Can be used only for many-to-one and owner one-to-one relations. Defaults to true."
+        },
+        "joinTable": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the table that will be created to store values of the both tables (join table). By default is auto generated."
+                },
+                "joinColumn": {
+                  "$ref": "#/definitions/JoinColumnOptions",
+                  "description": "First column of the join table."
+                },
+                "inverseJoinColumn": {
+                  "$ref": "#/definitions/JoinColumnOptions",
+                  "description": "Second (inverse) column of the join table."
+                },
+                "database": {
+                  "type": "string",
+                  "description": "Database where join table will be created. Works only in some databases (like mysql and mssql)."
+                },
+                "schema": {
+                  "type": "string",
+                  "description": "Schema where join table will be created. Works only in some databases (like postgres and mssql)."
+                },
+                "synchronize": {
+                  "type": "boolean",
+                  "description": "Indicates if schema synchronization is enabled or disabled junction table. If it will be set to false then schema sync will and migrations ignores junction table. By default schema synchronization is enabled."
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the table that will be created to store values of the both tables (join table). By default is auto generated."
+                },
+                "joinColumns": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/JoinColumnOptions"
+                  },
+                  "description": "First column of the join table."
+                },
+                "inverseJoinColumns": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/JoinColumnOptions"
+                  },
+                  "description": "Second (inverse) column of the join table."
+                },
+                "database": {
+                  "type": "string",
+                  "description": "Database where join table will be created. Works only in some databases (like mysql and mssql)."
+                },
+                "schema": {
+                  "type": "string",
+                  "description": "Schema where join table will be created. Works only in some databases (like postgres and mssql)."
+                },
+                "synchronize": {
+                  "type": "boolean",
+                  "description": "Indicates if schema synchronization is enabled or disabled junction table. If it will be set to false then schema sync will and migrations ignores junction table. By default schema synchronization is enabled."
+                }
+              },
+              "additionalProperties": false
+            }
+          ],
+          "description": "Join table options of this column. If set to true then it simply means that it has a join table."
+        },
+        "joinColumn": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/definitions/JoinColumnOptions"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/JoinColumnOptions"
+              }
+            }
+          ],
+          "description": "Join column options of this column. If set to true then it simply means that it has a join column."
+        },
+        "treeParent": {
+          "type": "boolean",
+          "description": "Indicates if this is a parent (can be only many-to-one relation) relation in the tree tables."
+        },
+        "treeChildren": {
+          "type": "boolean",
+          "description": "Indicates if this is a children (can be only one-to-many relation) relation in the tree tables."
+        },
+        "cascade": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "insert",
+                  "update",
+                  "remove",
+                  "soft-remove",
+                  "recover"
+                ]
+              }
+            }
+          ],
+          "description": "If set to true then it means that related object can be allowed to be inserted / updated / removed to the db. This is option a shortcut if you would like to set cascadeInsert, cascadeUpdate and cascadeRemove to true."
+        },
+        "default": {
+          "description": "Default database value."
+        },
+        "nullable": {
+          "type": "boolean",
+          "description": "Indicates if relation column value can be nullable or not."
+        },
+        "onDelete": {
+          "type": "string",
+          "enum": [
+            "RESTRICT",
+            "CASCADE",
+            "SET NULL",
+            "DEFAULT",
+            "NO ACTION"
+          ],
+          "description": "Database cascade action on delete."
+        },
+        "onUpdate": {
+          "type": "string",
+          "enum": [
+            "RESTRICT",
+            "CASCADE",
+            "SET NULL",
+            "DEFAULT",
+            "NO ACTION"
+          ],
+          "description": "Database cascade action on update."
+        },
+        "deferrable": {
+          "type": "string",
+          "enum": [
+            "INITIALLY IMMEDIATE",
+            "INITIALLY DEFERRED"
+          ],
+          "description": "Indicate if foreign key constraints can be deferred."
+        },
+        "orphanedRowAction": {
+          "type": "string",
+          "enum": [
+            "nullify",
+            "delete",
+            "soft-delete",
+            "disable"
+          ],
+          "description": "When a parent is saved (with cascading but) without a child row that still exists in database, this will control what shall happen to them. delete will remove these rows from database. nullify will remove the relation key. skip will keep the relation intact. Removal of related item is only possible through its own repo."
+        }
+      },
+      "required": [
+        "target",
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "RelationType": {
+      "type": "string",
+      "enum": [
+        "one-to-one",
+        "one-to-many",
+        "many-to-one",
+        "many-to-many"
+      ]
+    },
+    "JoinColumnOptions": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the column."
+        },
+        "referencedColumnName": {
+          "type": "string",
+          "description": "Name of the column in the entity to which this column is referenced."
+        },
+        "foreignKeyConstraintName": {
+          "type": "string",
+          "description": "Name of the foreign key constraint."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Describes join column options."
+    },
+    "EntitySchemaRelationIdOptions": {
+      "type": "object",
+      "properties": {
+        "relationName": {
+          "type": "string",
+          "description": "Name of relation."
+        },
+        "alias": {
+          "type": "string",
+          "description": "Alias of the joined (destination) table."
+        }
+      },
+      "required": [
+        "relationName"
+      ],
+      "additionalProperties": false
+    },
+    "EntitySchemaIndexOptions": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Index name."
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Index column names."
+        },
+        "synchronize": {
+          "type": "boolean",
+          "description": "Indicates if index must sync with database index."
+        },
+        "sparse": {
+          "type": "boolean",
+          "description": "If true, the index only references documents with the specified field. These indexes use less space but behave differently in some situations (particularly sorts). This option is only supported for mongodb database."
+        },
+        "unique": {
+          "type": "boolean",
+          "description": "Indicates if this index must be unique or not."
+        },
+        "spatial": {
+          "type": "boolean",
+          "description": "The SPATIAL modifier indexes the entire column and does not allow indexed columns to contain NULL values. Works only in MySQL and PostgreSQL."
+        },
+        "fulltext": {
+          "type": "boolean",
+          "description": "The FULLTEXT modifier indexes the entire column and does not allow prefixing. Works only in MySQL."
+        },
+        "nullFiltered": {
+          "type": "boolean",
+          "description": "NULL_FILTERED indexes are particularly useful for indexing sparse columns, where most rows contain a NULL value. In these cases, the NULL_FILTERED index can be considerably smaller and more efficient to maintain than a normal index that includes NULL values.\n\nWorks only in Spanner."
+        },
+        "parser": {
+          "type": "string",
+          "description": "Fulltext parser. Works only in MySQL."
+        },
+        "where": {
+          "type": "string",
+          "description": "Index filter condition."
+        }
+      },
+      "additionalProperties": false
+    },
+    "EntitySchemaUniqueOptions": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Unique constraint name."
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Unique column names."
+        },
+        "deferrable": {
+          "type": "string",
+          "enum": [
+            "INITIALLY IMMEDIATE",
+            "INITIALLY DEFERRED"
+          ],
+          "description": "Indicate if unique constraints can be deferred."
+        }
+      },
+      "additionalProperties": false
+    },
+    "EntitySchemaCheckOptions": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Check constraint name."
+        },
+        "expression": {
+          "type": "string",
+          "description": "Check expression."
+        }
+      },
+      "required": [
+        "expression"
+      ],
+      "additionalProperties": false
+    },
+    "EntitySchemaExclusionOptions": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Exclusion constraint name."
+        },
+        "expression": {
+          "type": "string",
+          "description": "Exclusion expression."
+        }
+      },
+      "required": [
+        "expression"
+      ],
+      "additionalProperties": false
+    },
+    "FormKind": {
+      "type": "string",
+      "enum": [
+        "CREATE",
+        "UPDATE",
+        "DELETE",
+        "DETAILS"
+      ]
+    },
+    "FormMethod": {
+      "type": "string",
+      "enum": [
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ]
+    }
+  }
+}

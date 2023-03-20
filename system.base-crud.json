@@ -1,0 +1,64 @@
+{
+  "defaultColumns": {
+    "id": {
+      "nativeType": "number",
+      "type": "integer",
+      "primary": true,
+      "templateName": "hidden",
+      "generated": "increment",
+      "required": false
+    },
+    "uuid": {
+      "nativeType": "string",
+      "type": "uuid",
+      "templateName": "hidden",
+      "generated": "uuid",
+      "required": false
+    },
+    "createdAt": {
+      "nativeType": "Date",
+      "type": "timestamp",
+      "default": "NOW()",
+      "required": false
+    },
+    "updatedAt": {
+      "nativeType": "Date",
+      "type": "timestamp",
+      "default": null,
+      "onUpdate": "NOW()",
+      "updateDate": true,
+      "required": false
+    },
+    "deletedAt": {
+      "nativeType": "Date",
+      "type": "timestamp",
+      "default": null,
+      "deleteDate": true,
+      "required": false
+    },
+    "createdBy": {
+      "type": "uuid",
+      "nullable": true,
+      "required": false
+    },
+    "updatedBy": {
+      "type": "uuid",
+      "nullable": true,
+      "required": false
+    },
+    "deletedBy": {
+      "type": "uuid",
+      "nullable": true,
+      "required": false
+    }
+  },
+  "application": {
+    "name": "easy-dance",
+    "endpoint": "http://localhost:3000"
+  },
+  "tables": {
+    "role": {
+
+    }
+  }
+}

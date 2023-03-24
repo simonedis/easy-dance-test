@@ -21,6 +21,17 @@ export const PriveOrderEntitySchema = new EntitySchema<IPriveOrder>({
     createdBy: { type: 'uuid', nullable: true, name: 'createdBy' },
     updatedBy: { type: 'uuid', nullable: true, name: 'updatedBy' },
     deletedBy: { type: 'uuid', nullable: true, name: 'deletedBy' },
+    bill: { type: 'bigint', nullable: true, default: null, name: 'bill' },
+    name: { type: 'enum', enum: ['COMPLETED', 'IN_PROGRESS'], name: 'name' },
+  },
+  relations: {
+    prive: { type: 'many-to-one', target: 'prive', inverseSide: 'orders' },
+    user: { type: 'many-to-one', target: 'user', inverseSide: 'orders' },
+    rows: {
+      type: 'one-to-many',
+      target: 'priveOrderRow',
+      inverseSide: 'order',
+    },
   },
   name: 'priveOrder',
   tableName: 'priveOrder',

@@ -1,0 +1,132 @@
+{
+  "defaultColumns": {
+    "id": {
+      "nativeType": "number",
+      "type": "integer",
+      "primary": true,
+      "templateName": "hidden",
+      "generated": "increment",
+      "required": false
+    },
+    "uuid": {
+      "nativeType": "string",
+      "type": "uuid",
+      "templateName": "hidden",
+      "generated": "uuid",
+      "required": false
+    },
+    "createdAt": {
+      "nativeType": "Date",
+      "type": "timestamp",
+      "default": "NOW()",
+      "required": false
+    },
+    "updatedAt": {
+      "nativeType": "Date",
+      "type": "timestamp",
+      "default": null,
+      "onUpdate": "NOW()",
+      "updateDate": true,
+      "required": false
+    },
+    "deletedAt": {
+      "nativeType": "Date",
+      "type": "timestamp",
+      "default": null,
+      "deleteDate": true,
+      "required": false
+    },
+    "createdBy": {
+      "type": "uuid",
+      "nullable": true,
+      "required": false
+    },
+    "updatedBy": {
+      "type": "uuid",
+      "nullable": true,
+      "required": false
+    },
+    "deletedBy": {
+      "type": "uuid",
+      "nullable": true,
+      "required": false
+    }
+  },
+  "application": {
+    "name": "easy-dance",
+    "endpoint": "http://localhost:3000"
+  },
+  "tables": {
+    "role": {
+      "setDefaultColumns": true,
+      "columns": {
+        "name": {
+          "type": "varchar",
+          "maxLength": 100
+        }
+      },
+      "relations": {
+        "users": {
+          "type": "many-to-many",
+          "target": "user",
+          "joinTable": true
+        }
+      }
+    },
+    "user": {
+      "setDefaultColumns": true,
+      "name": "user",
+      "autoBuild": {
+        "tables": true,
+        "forms": true
+      },
+      "columns": {
+        "username": {
+          "nullable": false,
+          "name": "username",
+          "type": "varchar",
+          "minLength": 4,
+          "unique": true
+        },
+        "email": {
+          "type": "varchar",
+          "unique": true
+        },
+        "password": {
+          "type": "varchar"
+        }
+      },
+      "relations": {
+        "roles": {
+          "target": "role",
+          "type": "many-to-many",
+          "inverseSide": "users",
+          "joinTable": {
+            "name": "user_to_role"
+          }
+        },
+        "followers": {
+          "target": "userToUserFollower",
+          "inverseSide": "followed",
+          "type": "one-to-many"
+        },
+        "followings": {
+          "target": "userToUserFollower",
+          "inverseSide": "follower",
+          "type": "one-to-many"
+        },
+        "followingClubs": {
+          "target": "userToClubFollower",
+          "inverseSide": "user",
+          "type": "one-to-many"
+        },
+        "club": {
+          "type": "one-to-one",
+          "nullable": true,
+          "target": "club",
+          "inverseSide": "owner"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,365 @@
+{
+  "application": {
+    "name": "easy-dance",
+    "endpoint": "http://localhost:3000"
+  },
+  "tables": {
+    "userToUserFollower": {
+      "setDefaultColumns": true,
+      "columns": {
+      },
+      "relations": {
+        "follower": {
+          "type": "many-to-one",
+          "target": "user",
+          "joinTable": true,
+          "inverseSide": "followers"
+        },
+        "followed": {
+          "type": "many-to-one",
+          "target": "user",
+          "joinTable": true,
+          "inverseSide": "following"
+        }
+      }
+    },
+    "userToClubFollower": {
+      "setDefaultColumns": true,
+      "columns": {
+      },
+      "relations": {
+        "user": {
+          "type": "many-to-one",
+          "target": "user",
+          "joinTable": true,
+          "inverseSide": "clubs"
+        },
+        "club": {
+          "type": "many-to-one",
+          "target": "club",
+          "joinTable": true,
+          "inverseSide": "following"
+        }
+      }
+    },
+    "address": {
+      "setDefaultColumns": true,
+      "endpoint": "addresses",
+      "columns": {
+        "street": {
+          "type": "varchar",
+          "minLength": 3,
+          "maxLength": 350
+        },
+        "streetNumber": {
+          "type": "varchar",
+          "minLength": 3,
+          "maxLength": 50
+        },
+        "cap": {
+          "type": "varchar",
+          "minLength": 3,
+          "maxLength": 150
+        },
+        "city": {
+          "type": "varchar",
+          "minLength": 3,
+          "maxLength": 150
+        },
+        "country": {
+          "type": "varchar",
+          "minLength": 3,
+          "maxLength": 150
+        },
+        "lat": {
+          "type": "bigint",
+          "nullable": true
+        },
+        "lng": {
+          "type": "bigint",
+          "nullable": true
+        }
+      }
+    },
+    "club": {
+      "setDefaultColumns": true,
+      "columns": {
+        "name": {
+          "type": "varchar",
+          "maxLength": 350
+        },
+        "cover": {
+          "type": "varchar",
+          "maxLength": 350
+        },
+        "phone": {
+          "type": "varchar",
+          "maxLength": 350
+        },
+        "email": {
+          "type": "varchar",
+          "maxLength": 350
+        },
+        "facebook": {
+          "type": "varchar",
+          "maxLength": 350
+        },
+        "instagram": {
+          "type": "varchar",
+          "maxLength": 350
+        },
+        "whatsapp": {
+          "type": "varchar",
+          "maxLength": 350
+        }
+      },
+      "relations": {
+        "owner": {
+          "target": "user",
+          "type": "one-to-one",
+          "inverseSide": "club",
+          "nullable": true,
+          "joinColumn": true
+        },
+        "address": {
+          "target": "address",
+          "type": "one-to-one",
+          "inverseSide": "club",
+          "joinColumn": true
+        },
+        "parties": {
+          "target": "party",
+          "type": "one-to-many",
+          "inverseSide": "club"
+        },
+        "warehouse": {
+          "target": "warehouse",
+          "type": "one-to-one",
+          "inverseSide": "club"
+        }
+      }
+    },
+    "party": {
+      "setDefaultColumns": true,
+      "columns": {
+        "title": {
+          "type": "varchar"
+        },
+        "isWaitingList": {
+          "type": "boolean"
+        },
+        "hidden": {
+          "type": "boolean"
+        },
+        "from": {
+          "type": "bigint"
+        },
+        "to": {
+          "type": "bigint"
+        },
+        "cover": {
+          "type": "varchar"
+        }
+      },
+      "relations": {
+        "club": {
+          "type": "many-to-one",
+          "target": "club",
+          "inverseSide": "parties"
+        },
+        "address": {
+          "type": "one-to-one",
+          "target": "address"
+        }
+      }
+    },
+    "partyParticipation": {
+      "setDefaultColumns": true,
+      "columns": {
+      },
+      "relations": {
+        "user": {
+          "target": "user",
+          "type": "many-to-one",
+          "inverseSide": "club",
+          "joinColumn": true
+        },
+        "party": {
+          "target": "party",
+          "type": "many-to-one",
+          "inverseSide": "club",
+          "joinColumn": true
+        }
+      }
+    },
+    "savedParty": {
+      "setDefaultColumns": true,
+      "columns": {
+      },
+      "relations": {
+        "user": {
+          "target": "user",
+          "type": "many-to-one",
+          "inverseSide": "club",
+          "joinColumn": true
+        },
+        "party": {
+          "target": "party",
+          "type": "many-to-one",
+          "inverseSide": "club",
+          "joinColumn": true
+        }
+      }
+    },
+    "priveCategory": {
+      "setDefaultColumns": true,
+      "columns": {
+        "name": {
+          "type": "varchar"
+        },
+        "minimumBill": {
+          "type": "bigint",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "relations": {
+        "club": {
+          "target": "club",
+          "type": "many-to-one",
+          "inverseSide": "categories"
+        }
+      }
+    },
+    "prive": {
+      "setDefaultColumns": true,
+      "columns": {
+        "name": {
+          "type": "varchar"
+        },
+        "capacity": {
+          "type": "integer"
+        },
+        "minimumBill": {
+          "type": "bigint",
+          "nullable": true,
+          "default": null
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "relations": {
+        "club": {
+          "target": "club",
+          "type": "many-to-one",
+          "inverseSide": "parties"
+        },
+        "priveOrders": {
+          "target": "priveOrder",
+          "type": "one-to-many",
+          "inverseSide": "prive"
+        },
+        "categories": {
+          "target": "priveCategory",
+          "type": "one-to-many",
+          "inverseSide": "prive"
+        }
+      }
+    },
+    "priveOrder": {
+      "setDefaultColumns": true,
+      "columns": {
+        "bill": {
+          "type": "bigint",
+          "nullable": true,
+          "default": null
+        },
+        "name": {
+          "type": "enum",
+          "enum": [
+            "COMPLETED",
+            "IN_PROGRESS"
+          ]
+        }
+      },
+      "relations": {
+        "prive": {
+          "type": "many-to-one",
+          "target": "prive",
+          "inverseSide": "orders"
+        },
+        "user": {
+          "type": "many-to-one",
+          "target": "user",
+          "inverseSide": "orders"
+        },
+        "rows": {
+          "type": "one-to-many",
+          "target": "priveOrderRow",
+          "inverseSide": "order"
+        }
+      }
+    },
+    "priveOrderRow": {
+      "setDefaultColumns": true,
+      "columns": {
+        "price": {
+          "type": "bigint"
+        },
+        "qty": {
+          "type": "integer"
+        }
+      },
+      "relations": {
+        "priceListItem": {
+          "type": "many-to-one",
+          "target": "priceListItem",
+          "inverseSide": "priveOrderRow"
+        }
+      }
+    },
+    "priveReservation": {
+      "setDefaultColumns": true,
+      "columns": {
+        "status": {
+          "type": "enum",
+          "enum": []
+        }
+      },
+      "relations": {
+        "user": {
+          "type": "many-to-one",
+          "target": "user",
+          "inverseSide": "reservations"
+        },
+        "privePartyRule": {
+          "type": "many-to-one",
+          "target": "privePartyRule",
+          "inverseSide": "reservations"
+        }
+      }
+    },
+    "privePartyRule": {
+      "setDefaultColumns": true,
+      "columns": {
+        "minimumBill": {
+          "type": "bigint"
+        }
+      },
+      "relations": {
+        "party": {
+          "target": "party",
+          "type": "many-to-one",
+          "inverseSide": "rules"
+        },
+        "prive": {
+          "target": "prive",
+          "type": "many-to-one",
+          "inverseSide": "rules"
+        }
+      }
+    }
+  }
+}

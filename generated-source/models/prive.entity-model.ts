@@ -1,14 +1,20 @@
+import { IClub } from './club.entity-model';
+import { IPriveOrder } from './prive-order.entity-model';
+import { IPriveCategory } from './prive-category.entity-model';
 export interface IPrive {
   id: number;
-  uuid: string;
+  uuid: any;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
-  createdBy?: string;
-  updatedBy?: string;
-  deletedBy?: string;
+  createdBy?: any;
+  updatedBy?: any;
+  deletedBy?: any;
   name: string;
-  capacity: string;
-  minimumBill?: string;
-  enabled: string;
+  capacity: number;
+  minimumBill?: number;
+  enabled: boolean;
+  club?: IClub;
+  priveOrders?: IPriveOrder[];
+  categories?: IPriveCategory[];
 }

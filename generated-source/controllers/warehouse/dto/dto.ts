@@ -5,6 +5,30 @@ import { IClub } from '../../../models/club.entity-model';
 import { ProductBaseDto } from '../../product/dto/dto';
 import { ClubBaseDto } from '../../club/dto/dto';
 export class WarehouseBaseDto implements IWarehouse {
+  @ApiPropertyExt({ type: Number, required: false })
+  id: number;
+
+  @ApiPropertyExt({ type: Object, required: false })
+  uuid: string;
+
+  @ApiPropertyExt({ type: Date, required: false })
+  createdAt: Date;
+
+  @ApiPropertyExt({ type: Date, required: false })
+  updatedAt: Date;
+
+  @ApiPropertyExt({ type: Date, required: false })
+  deletedAt: Date;
+
+  @ApiPropertyExt({ type: Object, required: false, nullable: true })
+  createdBy?: any;
+
+  @ApiPropertyExt({ type: Object, required: false, nullable: true })
+  updatedBy?: any;
+
+  @ApiPropertyExt({ type: Object, required: false, nullable: true })
+  deletedBy?: any;
+
   @ApiPropertyExt({ type: () => ProductBaseDto, isArray: true })
   products?: IProduct[];
 

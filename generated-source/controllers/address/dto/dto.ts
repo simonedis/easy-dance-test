@@ -2,6 +2,30 @@ import { ApiPropertyExt } from '@odda-studio/base-crud-decorators';
 import { IAddress } from '../../../models/address.entity-model';
 
 export class AddressBaseDto implements IAddress {
+  @ApiPropertyExt({ type: Number, required: false })
+  id: number;
+
+  @ApiPropertyExt({ type: Object, required: false })
+  uuid: string;
+
+  @ApiPropertyExt({ type: Date, required: false })
+  createdAt: Date;
+
+  @ApiPropertyExt({ type: Date, required: false })
+  updatedAt: Date;
+
+  @ApiPropertyExt({ type: Date, required: false })
+  deletedAt: Date;
+
+  @ApiPropertyExt({ type: Object, required: false, nullable: true })
+  createdBy?: any;
+
+  @ApiPropertyExt({ type: Object, required: false, nullable: true })
+  updatedBy?: any;
+
+  @ApiPropertyExt({ type: Object, required: false, nullable: true })
+  deletedBy?: any;
+
   @ApiPropertyExt({ minLength: 3, maxLength: 350, type: String })
   street: string;
 
@@ -18,10 +42,10 @@ export class AddressBaseDto implements IAddress {
   country: string;
 
   @ApiPropertyExt({ type: Number, nullable: true })
-  lat?: string;
+  lat?: number;
 
   @ApiPropertyExt({ type: Number, nullable: true })
-  lng?: string;
+  lng?: number;
 }
 
 export class CreateAddressRequestDto extends AddressBaseDto {}

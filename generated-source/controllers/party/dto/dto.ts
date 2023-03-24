@@ -5,20 +5,44 @@ import { IAddress } from '../../../models/address.entity-model';
 import { ClubBaseDto } from '../../club/dto/dto';
 import { AddressBaseDto } from '../../address/dto/dto';
 export class PartyBaseDto implements IParty {
+  @ApiPropertyExt({ type: Number, required: false })
+  id: number;
+
+  @ApiPropertyExt({ type: Object, required: false })
+  uuid: string;
+
+  @ApiPropertyExt({ type: Date, required: false })
+  createdAt: Date;
+
+  @ApiPropertyExt({ type: Date, required: false })
+  updatedAt: Date;
+
+  @ApiPropertyExt({ type: Date, required: false })
+  deletedAt: Date;
+
+  @ApiPropertyExt({ type: Object, required: false, nullable: true })
+  createdBy?: any;
+
+  @ApiPropertyExt({ type: Object, required: false, nullable: true })
+  updatedBy?: any;
+
+  @ApiPropertyExt({ type: Object, required: false, nullable: true })
+  deletedBy?: any;
+
   @ApiPropertyExt({ type: String })
   title: string;
 
   @ApiPropertyExt({ type: Boolean })
-  isWaitingList: string;
+  isWaitingList: boolean;
 
   @ApiPropertyExt({ type: Boolean })
-  hidden: string;
+  hidden: boolean;
 
   @ApiPropertyExt({ type: Number })
-  from: string;
+  from: number;
 
   @ApiPropertyExt({ type: Number })
-  to: string;
+  to: number;
 
   @ApiPropertyExt({ type: String })
   cover: string;

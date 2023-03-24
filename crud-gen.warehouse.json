@@ -1,0 +1,64 @@
+{
+  "application": {
+
+  },
+  "tables": {
+    "warehouse": {
+      "setDefaultColumns": true,
+      "columns": {
+
+      },
+      "relations": {
+        "products": {
+          "target": "product",
+          "type": "one-to-many",
+          "inverseSide": "warehouse"
+        },
+        "club": {
+          "target": "club",
+          "type": "one-to-one",
+          "inverseSide": "warehouse"
+        }
+      }
+    },
+    "product": {
+      "setDefaultColumns": true,
+      "columns": {
+        "name": {
+          "type": "varchar"
+        },
+        "price": {
+          "type": "bigint"
+        },
+        "qta": {
+          "type": "bigint"
+        }
+      },
+      "relations": {
+        "warehouse": {
+          "target": "warehouse",
+          "type": "many-to-one",
+          "inverseSide": "products"
+        }
+      }
+    },
+    "priceListItem": {
+      "setDefaultColumns": true,
+      "columns": {
+
+      },
+      "relations": {
+        "party": {
+          "target": "party",
+          "type": "many-to-one",
+          "joinTable": true,
+          "inverseSide": "priceListItems"
+        },
+        "product": {
+          "type": "many-to-one",
+          "target": "product"
+        }
+      }
+    }
+  }
+}

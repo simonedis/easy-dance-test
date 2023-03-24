@@ -1,17 +1,17 @@
 export interface IAddress {
   id: number;
-  uuid: string;
+  uuid: any;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
-  createdBy?: string;
-  updatedBy?: string;
-  deletedBy?: string;
+  createdBy?: any;
+  updatedBy?: any;
+  deletedBy?: any;
   street: string;
   streetNumber: string;
   cap: string;
   city: string;
   country: string;
-  lat?: string;
-  lng?: string;
+  lat?: number;
+  lng?: number;
 }

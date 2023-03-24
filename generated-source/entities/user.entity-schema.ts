@@ -32,14 +32,25 @@ export const UserEntitySchema = new EntitySchema<IUser>({
     password: { type: 'varchar', name: 'password' },
   },
   relations: {
+    roles: {
+      target: 'role',
+      type: 'many-to-many',
+      inverseSide: 'users',
+      joinTable: { name: 'user_to_role' },
+    },
     followers: {
-      target: 'userFollower',
+      target: 'userToUserFollower',
       inverseSide: 'followed',
       type: 'one-to-many',
     },
     followings: {
-      target: 'userFollower',
+      target: 'userToUserFollower',
       inverseSide: 'follower',
+      type: 'one-to-many',
+    },
+    followingClubs: {
+      target: 'userToClubFollower',
+      inverseSide: 'user',
       type: 'one-to-many',
     },
     club: {

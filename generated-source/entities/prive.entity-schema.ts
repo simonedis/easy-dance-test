@@ -31,6 +31,19 @@ export const PriveEntitySchema = new EntitySchema<IPrive>({
     },
     enabled: { type: 'boolean', default: true, name: 'enabled' },
   },
+  relations: {
+    club: { target: 'club', type: 'many-to-one', inverseSide: 'parties' },
+    priveOrders: {
+      target: 'priveOrder',
+      type: 'one-to-many',
+      inverseSide: 'prive',
+    },
+    categories: {
+      target: 'priveCategory',
+      type: 'one-to-many',
+      inverseSide: 'prive',
+    },
+  },
   name: 'prive',
   tableName: 'prive',
 });

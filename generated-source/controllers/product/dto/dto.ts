@@ -3,30 +3,6 @@ import { IProduct } from '../../../models/product.entity-model';
 import { IWarehouse } from '../../../models/warehouse.entity-model';
 import { WarehouseBaseDto } from '../../warehouse/dto/dto';
 export class ProductBaseDto implements IProduct {
-  @ApiPropertyExt({ type: Number, required: false })
-  id: number;
-
-  @ApiPropertyExt({ type: Object, required: false })
-  uuid: string;
-
-  @ApiPropertyExt({ type: Date, required: false })
-  createdAt: Date;
-
-  @ApiPropertyExt({ type: Date, required: false })
-  updatedAt: Date;
-
-  @ApiPropertyExt({ type: Date, required: false })
-  deletedAt: Date;
-
-  @ApiPropertyExt({ type: Object, required: false, nullable: true })
-  createdBy?: string;
-
-  @ApiPropertyExt({ type: Object, required: false, nullable: true })
-  updatedBy?: string;
-
-  @ApiPropertyExt({ type: Object, required: false, nullable: true })
-  deletedBy?: string;
-
   @ApiPropertyExt({ type: String })
   name: string;
 

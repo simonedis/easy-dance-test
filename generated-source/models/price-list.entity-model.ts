@@ -1,5 +1,5 @@
-import { IRole } from './role.entity-model';
-export interface IScope {
+import { IParty } from './party.entity-model';
+export interface IPriceList {
   id: number;
   uuid: string;
   createdAt: Date;
@@ -8,6 +8,5 @@ export interface IScope {
   createdBy?: string;
   updatedBy?: string;
   deletedBy?: string;
-  name: string;
-  roles?: IRole[];
+  party?: IParty;
 }

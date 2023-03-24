@@ -1,6 +1,6 @@
 import { EntitySchema } from 'typeorm';
-import { IScope } from '../models/scope.entity-model';
-export const ScopeEntitySchema = new EntitySchema<IScope>({
+import { IPriceList } from '../models/price-list.entity-model';
+export const PriceListEntitySchema = new EntitySchema<IPriceList>({
   columns: {
     id: { type: 'integer', primary: true, generated: 'increment', name: 'id' },
     uuid: { type: 'uuid', generated: 'uuid', name: 'uuid' },
@@ -21,15 +21,15 @@ export const ScopeEntitySchema = new EntitySchema<IScope>({
     createdBy: { type: 'uuid', nullable: true, name: 'createdBy' },
     updatedBy: { type: 'uuid', nullable: true, name: 'updatedBy' },
     deletedBy: { type: 'uuid', nullable: true, name: 'deletedBy' },
-    name: { type: 'varchar', name: 'name' },
   },
   relations: {
-    roles: {
-      type: 'many-to-many',
-      target: 'role',
-      joinTable: { name: 'role_to_scope' },
+    party: {
+      target: 'party',
+      type: 'many-to-one',
+      joinTable: true,
+      inverseSide: 'priceLists',
     },
   },
-  name: 'scope',
-  tableName: 'scope',
+  name: 'priceList',
+  tableName: 'priceList',
 });

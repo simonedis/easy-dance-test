@@ -58,7 +58,22 @@
   },
   "tables": {
     "role": {
-
+      "setDefaultColumns": true,
+      "columns": {
+        "name": {
+          "type": "varchar",
+          "maxLength": 100
+        }
+      },
+      "relations": {
+        "scopes": {
+          "type": "many-to-many",
+          "target": "scope",
+          "joinTable": {
+            "name": "role_to_scope"
+          }
+        }
+      }
     }
   }
 }

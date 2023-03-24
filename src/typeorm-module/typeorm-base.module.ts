@@ -15,7 +15,7 @@ import { WarehouseEntitySchema } from '../../generated-source/entities/warehouse
 export const typeormConfig: TypeOrmModuleOptions = {
   type: 'postgres',
   host: 'localhost',
-  port: Number(5432),
+  port: Number(5433),
   username: 'root',
   password: 'root',
   database: 'template',

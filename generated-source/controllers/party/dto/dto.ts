@@ -5,30 +5,6 @@ import { IAddress } from '../../../models/address.entity-model';
 import { ClubBaseDto } from '../../club/dto/dto';
 import { AddressBaseDto } from '../../address/dto/dto';
 export class PartyBaseDto implements IParty {
-  @ApiPropertyExt({ type: Number, required: false })
-  id: number;
-
-  @ApiPropertyExt({ type: Object, required: false })
-  uuid: string;
-
-  @ApiPropertyExt({ type: Date, required: false })
-  createdAt: Date;
-
-  @ApiPropertyExt({ type: Date, required: false })
-  updatedAt: Date;
-
-  @ApiPropertyExt({ type: Date, required: false })
-  deletedAt: Date;
-
-  @ApiPropertyExt({ type: Object, required: false, nullable: true })
-  createdBy?: string;
-
-  @ApiPropertyExt({ type: Object, required: false, nullable: true })
-  updatedBy?: string;
-
-  @ApiPropertyExt({ type: Object, required: false, nullable: true })
-  deletedBy?: string;
-
   @ApiPropertyExt({ type: String })
   title: string;
 

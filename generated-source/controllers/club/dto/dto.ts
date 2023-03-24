@@ -9,30 +9,6 @@ import { AddressBaseDto } from '../../address/dto/dto';
 import { PartyBaseDto } from '../../party/dto/dto';
 import { WarehouseBaseDto } from '../../warehouse/dto/dto';
 export class ClubBaseDto implements IClub {
-  @ApiPropertyExt({ type: Number, required: false })
-  id: number;
-
-  @ApiPropertyExt({ type: Object, required: false })
-  uuid: string;
-
-  @ApiPropertyExt({ type: Date, required: false })
-  createdAt: Date;
-
-  @ApiPropertyExt({ type: Date, required: false })
-  updatedAt: Date;
-
-  @ApiPropertyExt({ type: Date, required: false })
-  deletedAt: Date;
-
-  @ApiPropertyExt({ type: Object, required: false, nullable: true })
-  createdBy?: string;
-
-  @ApiPropertyExt({ type: Object, required: false, nullable: true })
-  updatedBy?: string;
-
-  @ApiPropertyExt({ type: Object, required: false, nullable: true })
-  deletedBy?: string;
-
   @ApiPropertyExt({ maxLength: 350, type: String })
   name: string;
 

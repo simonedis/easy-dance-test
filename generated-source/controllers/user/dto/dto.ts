@@ -5,30 +5,6 @@ import { IClub } from '../../../models/club.entity-model';
 import { UserFollowerBaseDto } from '../../user-follower/dto/dto';
 import { ClubBaseDto } from '../../club/dto/dto';
 export class UserBaseDto implements IUser {
-  @ApiPropertyExt({ type: Number, required: false })
-  id: number;
-
-  @ApiPropertyExt({ type: Object, required: false })
-  uuid: string;
-
-  @ApiPropertyExt({ type: Date, required: false })
-  createdAt: Date;
-
-  @ApiPropertyExt({ type: Date, required: false })
-  updatedAt: Date;
-
-  @ApiPropertyExt({ type: Date, required: false })
-  deletedAt: Date;
-
-  @ApiPropertyExt({ type: Object, required: false, nullable: true })
-  createdBy?: string;
-
-  @ApiPropertyExt({ type: Object, required: false, nullable: true })
-  updatedBy?: string;
-
-  @ApiPropertyExt({ type: Object, required: false, nullable: true })
-  deletedBy?: string;
-
   @ApiPropertyExt({ minLength: 4, type: String, nullable: false })
   username: string;
 

@@ -8,6 +8,7 @@ import { RoleBaseDto } from '../../role/dto/dto';
 import { UserToUserFollowerBaseDto } from '../../user-to-user-follower/dto/dto';
 import { UserToClubFollowerBaseDto } from '../../user-to-club-follower/dto/dto';
 import { ClubBaseDto } from '../../club/dto/dto';
+
 export class UserBaseDto implements IUser {
   @ApiPropertyExt({ type: Number, required: false })
   id: number;
@@ -36,7 +37,7 @@ export class UserBaseDto implements IUser {
   @ApiPropertyExt({ minLength: 4, type: String, nullable: false })
   username: string;
 
-  @ApiPropertyExt({ type: String })
+  @ApiPropertyExt({ type: String, minLength: 5 })
   email: string;
 
   @ApiPropertyExt({ type: String })
@@ -56,9 +57,17 @@ export class UserBaseDto implements IUser {
 
   @ApiPropertyExt({ type: () => ClubBaseDto, isArray: false })
   club?: IClub;
+  type: number;
 }
 
-export class CreateUserRequestDto extends UserBaseDto {}
+enum names {
+  simone = 'simone',
+  martina = 'martina',
+}
+export class CreateUserRequestDto extends UserBaseDto {
+  @ApiPropertyExt({ type: String, minLength: 5, required: true })
+  email: string;
+}
 
 export class CreateUserResponseDto extends UserBaseDto {}
 

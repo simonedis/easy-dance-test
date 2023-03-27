@@ -1,10 +1,8 @@
 {
   "defaultColumns": {
     "id": {
-      "nativeType": "number",
       "type": "integer",
       "primary": true,
-      "templateName": "hidden",
       "generated": "increment",
       "required": false
     },
@@ -74,12 +72,69 @@
       }
     },
     "user": {
-      "setDefaultColumns": true,
-      "name": "user",
       "autoBuild": {
-        "tables": true,
         "forms": true
       },
+      "setDefaultColumns": true,
+      "name": "user",
+      "tables": [
+        {
+          "name": "test",
+          "actions": {
+            "update": true,
+            "delete": true
+          },
+          "columns": [
+            "id",
+            "username"
+          ]
+        }
+      ],
+      "forms": [
+        {
+        "name": "create-user",
+        "identifier": "create-user",
+        "method": "POST",
+        "action": "/users",
+        "kind": "CREATE",
+        "rows": [
+          {
+            "class": "",
+            "order": 0,
+            "fields": [
+              "username",
+              "email",
+              "password",
+              {
+                "name": "type"
+              }
+            ]
+          }
+        ]
+      },
+        {
+          "name": "update-user",
+          "identifier": "update-user",
+          "method": "PUT",
+          "action": "/users",
+          "kind": "UPDATE",
+          "rows": [
+            {
+              "class": "",
+              "order": 0,
+              "fields": [
+                {
+                  "name": "id",
+                  "type": "hidden"
+                },
+                "username",
+                "email",
+                "password"
+              ]
+            }
+          ]
+        }
+      ],
       "columns": {
         "username": {
           "nullable": false,

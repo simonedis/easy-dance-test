@@ -9,11 +9,18 @@ import { CmsConfiguration } from '@odda-studio/base-crud';
   imports: [
     TypeOrmBaseModule,
     EntityHttpModule,
-    CmsConfiguration.setup('configuration', [
-      'crud-gen.entities.json',
-      'crud-gen.system.json',
-      'crud-gen.warehouse.json',
-    ],undefined, true),
+    CmsConfiguration.setup(
+      'configuration',
+      [
+        'crud-gen.entities.json',
+        'crud-gen.system.json',
+        'crud-gen.warehouse.json',
+      ],
+      {
+        endpoint: 'http://localhost:3000',
+      },
+      true,
+    ),
   ],
   controllers: [AppController],
   providers: [AppService],

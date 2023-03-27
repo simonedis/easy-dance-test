@@ -8,22 +8,39 @@ import { PriveOrderModule } from '../../generated-source/controllers/prive-order
 import { ProductModule } from '../../generated-source/controllers/product/product.module';
 import { RoleModule } from '../../generated-source/controllers/role/role.module';
 import { WarehouseModule } from '../../generated-source/controllers/warehouse/warehouse.module';
-import {
-  UserToUserFollowerModule
-} from "../../generated-source/controllers/user-to-user-follower/user-to-user-follower.module";
+import { UserToUserFollowerModule } from '../../generated-source/controllers/user-to-user-follower/user-to-user-follower.module';
+import { UserToClubFollowerModule } from '../../generated-source/controllers/user-to-club-follower/user-to-club-follower.module';
+import { PartyParticipationModule } from '../../generated-source/controllers/party-participation/party-participation.module';
+import { PriceListItemModule } from '../../generated-source/controllers/price-list-item/price-list-item.module';
+import { PriveCategoryModule } from '../../generated-source/controllers/prive-category/prive-category.module';
+import { PriveOrderRowModule } from '../../generated-source/controllers/prive-order-row/prive-order-row.module';
+import { PrivePartyRuleModule } from '../../generated-source/controllers/prive-party-rule/prive-party-rule.module';
+import { PriveReservationModule } from '../../generated-source/controllers/prive-reservation/prive-reservation.module';
+import { SavedPartyModule } from '../../generated-source/controllers/saved-party/saved-party.module';
 
 @Module({
   imports: [
-    UserModule,
     AddressModule,
     ClubModule,
     PartyModule,
+    PartyParticipationModule,
+    PriceListItemModule,
     PriveModule,
+    PriveCategoryModule,
+
     PriveOrderModule,
+    PriveOrderRowModule,
+    PrivePartyRuleModule,
+    PriveReservationModule,
+
     ProductModule,
     RoleModule,
+    SavedPartyModule,
+    UserToUserFollowerModule,
+    UserToClubFollowerModule,
+
+    UserModule,
     WarehouseModule,
-      UserToUserFollowerModule
   ],
   exports: [
     UserModule,

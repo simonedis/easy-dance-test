@@ -2,6 +2,7 @@ import { IRole } from './role.entity-model';
 import { IUserToUserFollower } from './user-to-user-follower.entity-model';
 import { IUserToClubFollower } from './user-to-club-follower.entity-model';
 import { IClub } from './club.entity-model';
+
 export interface IUser {
   id: number;
   uuid: any;
@@ -19,4 +20,5 @@ export interface IUser {
   followings?: IUserToUserFollower[];
   followingClubs?: IUserToClubFollower[];
   club?: IClub;
+  type: number;
 }

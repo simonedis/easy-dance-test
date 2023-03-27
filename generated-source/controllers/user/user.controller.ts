@@ -15,6 +15,16 @@ export class UserController
   implements IEntityController<IUser>
 {
   constructor(public service: UserService) {
-    super(service);
+    super(service, undefined, {
+      validate: (_item) => {
+        return false;
+      },
+      canDelete: () => {
+        return false;
+      },
+      canUpdate: () => {
+        return false;
+      },
+    });
   }
 }

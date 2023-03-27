@@ -1,4 +1,8 @@
-import { BaseEntityService, IEntityService } from '@odda-studio/base-crud';
+import {
+  BaseEntityService,
+  IEntityService,
+  TEntity,
+} from '@odda-studio/base-crud';
 import { IUser } from '../../../models/user.entity-model';
 import { UserEntitySchema } from '../../../entities/user.entity-schema';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -15,5 +19,22 @@ export class UserService
     private entityRepository: Repository<IUser>,
   ) {
     super(entityRepository, {});
+  }
+
+  protected async beforeCreate(item: TEntity<IUser>): Promise<any> {
+    const user = await this.repository().findOne({
+      where: [
+        {
+          username: item.username,
+        },
+        {
+          email: item.email,
+        },
+      ],
+    });
+    if (user != null) {
+      throw 'duplicate value';
+    }
+    return super.beforeCreate(item);
   }
 }

@@ -11,13 +11,14 @@ import { ProductEntitySchema } from '../../generated-source/entities/product.ent
 import { WarehouseEntitySchema } from '../../generated-source/entities/warehouse.entity-schema';
 import { UserToClubFollowerEntitySchema } from '../../generated-source/entities/user-to-club-follower.entity-schema';
 import { UserToUserFollowerEntitySchema } from '../../generated-source/entities/user-to-user-follower.entity-schema';
-import {PriveCategoryEntitySchema} from "../../generated-source/entities/prive-category.entity-schema";
-import {PriveOrderRowEntitySchema} from "../../generated-source/entities/prive-order-row.entity-schema";
-import {PriceListItemEntitySchema} from "../../generated-source/entities/price-list-item.entity-schema";
+import { PriveCategoryEntitySchema } from '../../generated-source/entities/prive-category.entity-schema';
+import { PriveOrderRowEntitySchema } from '../../generated-source/entities/prive-order-row.entity-schema';
+import { PriceListItemEntitySchema } from '../../generated-source/entities/price-list-item.entity-schema';
+
 export const typeormConfig: TypeOrmModuleOptions = {
   type: 'postgres',
   host: 'localhost',
-  port: Number(5433),
+  port: Number(5432),
   username: 'root',
   password: 'root',
   database: 'template',
@@ -30,16 +31,15 @@ export const typeormConfig: TypeOrmModuleOptions = {
     PriveOrderEntitySchema,
     PriveOrderRowEntitySchema,
     ProductEntitySchema,
-      PriceListItemEntitySchema,
-      PriveCategoryEntitySchema,
-      PriveCategoryEntitySchema,
+    PriceListItemEntitySchema,
+    PriveCategoryEntitySchema,
+    PriveCategoryEntitySchema,
     RoleEntitySchema,
     UserEntitySchema,
     WarehouseEntitySchema,
     UserToClubFollowerEntitySchema,
     UserToUserFollowerEntitySchema,
-      PriveCategoryEntitySchema,
-
+    PriveCategoryEntitySchema,
   ],
 };
 

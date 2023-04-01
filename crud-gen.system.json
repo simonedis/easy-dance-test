@@ -73,9 +73,6 @@
     },
     "user": {
       "setDefaultColumns": true,
-      "autoBuild": {
-        "forms": true
-      },
       "name": "user",
       "tables": [
         {
@@ -100,6 +97,44 @@
           ]
         }
       ],
+      "forms": [
+        {
+          "name": "create-form-user",
+          "identifier": "create-form-user",
+          "kind": "UPDATE",
+          "action": "/users",
+          "method": "POST",
+          "rows": [
+            {
+              "class": "",
+              "fields": [
+                {
+                  "name": "username",
+                  "type": "text",
+                  "meta": {
+                    "dataType": "text"
+                  }
+                },
+                {
+                  "name": "password",
+                  "type": "text",
+                  "meta": {
+                    "dataType": "password"
+                  }
+                },
+                {
+                  "name": "email",
+                  "type": "text",
+                  "meta": {
+                    "dataType": "email"
+                  }
+                },
+                "roles"
+              ]
+            }
+          ]
+        }
+      ],
       "columns": {
         "username": {
           "nullable": false,
@@ -113,7 +148,23 @@
           "unique": true
         },
         "password": {
-          "type": "varchar"
+          "type": "varchar",
+          "nullable": true
+        },
+        "firstName": {
+          "type": "varchar",
+          "nullable": false,
+          "required": true
+        },
+        "lstName": {
+          "type": "varchar",
+          "nullable": false,
+          "required": true
+        },
+        "birthDate": {
+          "type": "timestamp",
+          "nullable": false,
+          "required": true
         }
       },
       "relations": {

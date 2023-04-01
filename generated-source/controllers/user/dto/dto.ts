@@ -8,57 +8,45 @@ import { RoleBaseDto } from '../../role/dto/dto';
 import { UserToUserFollowerBaseDto } from '../../user-to-user-follower/dto/dto';
 import { UserToClubFollowerBaseDto } from '../../user-to-club-follower/dto/dto';
 import { ClubBaseDto } from '../../club/dto/dto';
+
 export class UserBaseDto implements IUser {
-  constructor(user: IUser) {
-    Object.assign(this, user);
-  }
   @ApiPropertyExt({ type: Number, required: false })
   id: number;
 
   @ApiPropertyExt({ type: String, required: false })
   uuid: string;
-
   @ApiPropertyExt({ type: Date, required: false })
   createdAt: Date;
-
   @ApiPropertyExt({ type: Date, required: false })
   updatedAt: Date;
-
   @ApiPropertyExt({ type: Date, required: false })
   deletedAt: Date;
-
   @ApiPropertyExt({ type: String, required: false, nullable: true })
   createdBy?: string;
-
   @ApiPropertyExt({ type: String, required: false, nullable: true })
   updatedBy?: string;
-
   @ApiPropertyExt({ type: String, required: false, nullable: true })
   deletedBy?: string;
-
   @ApiPropertyExt({ minLength: 4, type: String, nullable: false })
   username: string;
-
   @ApiPropertyExt({ type: String })
   email: string;
-
   @ApiPropertyExt({ type: String })
   password: string;
-
   @ApiPropertyExt({ type: () => RoleBaseDto, isArray: true })
   roles?: IRole[];
-
   @ApiPropertyExt({ type: () => UserToUserFollowerBaseDto, isArray: true })
   followers?: IUserToUserFollower[];
-
   @ApiPropertyExt({ type: () => UserToUserFollowerBaseDto, isArray: true })
   followings?: IUserToUserFollower[];
-
   @ApiPropertyExt({ type: () => UserToClubFollowerBaseDto, isArray: true })
   followingClubs?: IUserToClubFollower[];
-
   @ApiPropertyExt({ type: () => ClubBaseDto, isArray: false })
   club?: IClub;
+
+  constructor(user: IUser) {
+    Object.assign(this, user);
+  }
 }
 
 export class CreateUserRequestDto extends UserBaseDto {}

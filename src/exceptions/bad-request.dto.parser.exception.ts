@@ -1,4 +1,13 @@
-import { ValidationError } from '@nestjs/common';
+import {
+  ArgumentsHost,
+  BadRequestException,
+  Catch,
+  ExceptionFilter,
+  HttpException,
+  ValidationError,
+} from '@nestjs/common';
+import { Request, Response } from 'express';
+import { ApiResponse } from '@nestjs/swagger';
 
 type IConstraint =
   | string
@@ -19,6 +28,31 @@ interface IFieldErrorGroup {
   [key: string]: Array<IFieldError>;
 }
 
+export const badRequest400 = () => {
+  return ApiResponse({
+    status: 400,
+    schema: {
+      required: [],
+      properties: {
+        errors: {
+          additionalProperties: {
+            description: 'property sent in body',
+            required: ['i18n', 'constraint'],
+            items: {
+              properties: {
+                i18n: {
+                  type: 'string',
+                },
+                constraint: {},
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+};
+
 interface IContexts {
   /**
    * key will be isRequired,minLength,maxLength,isNotEmpty.... will be all mapped
@@ -29,23 +63,89 @@ interface IContexts {
   };
 }
 
-export class BadRequestDtoParserException {
+export class BadRequestDtoParserException extends BadRequestException {
   fieldErrors: IFieldErrorGroup;
   constructor(errors: ValidationError[], public message: string) {
-    this.mapErrors(errors);
+    super(
+      errors.reduce((errors, error) => {
+        errors[error.property] = Object.values(error.contexts).map(
+          (f: { error: string; constraint: IConstraint }) => {
+            return {
+              i18n: f.error,
+              constraint: f.constraint,
+            } as IFieldError;
+          },
+        );
+        return errors;
+      }, {}),
+    );
   }
 
   mapErrors(errors: ValidationError[]) {
-    // this.fieldErrors = errors.map((f) => {
-    //   return {
-    //     field: f.property,
-    //     errors: Object.values(f.contexts as IContexts).map((f) => {
-    //       return {
-    //         constraint: f.constraint,
-    //         label: f.error,
-    //       };
-    //     }),
-    //   };
-    // });
+    this.fieldErrors = errors.reduce((errors, error) => {
+      errors[error.property] = Object.values(error.contexts).map(
+        (f: { error: string; constraint: IConstraint }) => {
+          return {
+            i18n: f.error,
+            constraint: f.constraint,
+          } as IFieldError;
+        },
+      );
+      return errors;
+    }, {});
+  }
+}
+
+@Catch(HttpException)
+export class BadRequestDtoParserExceptionFilter implements ExceptionFilter {
+  catch(exception: BadRequestDtoParserException, host: ArgumentsHost): any {
+    const ctx = host.switchToHttp();
+    const response = ctx.getResponse<Response>();
+    const request = ctx.getRequest<Request>();
+
+    response.status(400).json({
+      statusCode: 400,
+      timestamp: new Date().toISOString(),
+      path: request.url,
+      errors: exception.getResponse(),
+    });
+  }
+}
+
+@Catch()
+export class GlobalExceptionFilter implements ExceptionFilter {
+  catch(
+    exception: BadRequestDtoParserException | HttpException | unknown,
+    host: ArgumentsHost,
+  ): any {
+    const ctx = host.switchToHttp();
+    const response = ctx.getResponse<Response>();
+    const request = ctx.getRequest<Request>();
+
+    if (exception instanceof BadRequestDtoParserException) {
+      response.status(400).json({
+        statusCode: 400,
+        timestamp: new Date().toISOString(),
+        path: request.url,
+        errors: exception.getResponse(),
+      });
+      return;
+    }
+    if (exception instanceof HttpException) {
+      response.status(exception.getStatus()).json({
+        statusCode: exception.getStatus(),
+        timestamp: new Date().toISOString(),
+        path: request.url,
+        errors: exception.getResponse(),
+      });
+      return;
+    }
+
+    response.status(500).json({
+      statusCode: 500,
+      timestamp: new Date().toISOString(),
+      path: request.url,
+      errors: 'INTERNAL_SERVER_ERROR',
+    });
   }
 }

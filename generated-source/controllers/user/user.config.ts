@@ -10,7 +10,10 @@ import {
 import { IUser } from '../../models/user.entity-model';
 import { DtoParserPipe, IOpenApiConfiguration } from '@odda-studio/base-crud';
 import { UsePipes } from '@nestjs/common';
-import { BadRequestDtoParserException } from '../../../src/exceptions/bad-request.dto.parser.exception';
+import {
+  badRequest400,
+  BadRequestDtoParserException,
+} from '../../../src/exceptions/bad-request.dto.parser.exception';
 import { Public } from '../../../src/decorators/public';
 
 export const config: IOpenApiConfiguration<IUser> = {
@@ -25,14 +28,13 @@ export const config: IOpenApiConfiguration<IUser> = {
             transform: true,
             whitelist: false,
             exceptionFactory: (errors) => {
-              throw JSON.stringify(
-                new BadRequestDtoParserException(errors, ''),
-              );
+              throw new BadRequestDtoParserException(errors, '');
             },
           },
           CreateUserRequestDto,
         ),
       ),
+      badRequest400(),
     ],
   },
   update: {

@@ -72,65 +72,30 @@
       }
     },
     "user": {
+      "setDefaultColumns": true,
       "autoBuild": {
         "forms": true
       },
-      "setDefaultColumns": true,
       "name": "user",
       "tables": [
         {
-          "name": "test",
           "actions": {
+            "create": true,
             "update": true,
-            "delete": true
+            "details": false,
+            "delete": false
           },
+          "name": "table-user",
           "columns": [
             "id",
-            "username"
-          ]
-        }
-      ],
-      "forms": [
-        {
-        "name": "create-user",
-        "identifier": "create-user",
-        "method": "POST",
-        "action": "/users",
-        "kind": "CREATE",
-        "rows": [
-          {
-            "class": "",
-            "order": 0,
-            "fields": [
-              "username",
-              "email",
-              "password",
-              {
-                "name": "type"
-              }
-            ]
-          }
-        ]
-      },
-        {
-          "name": "update-user",
-          "identifier": "update-user",
-          "method": "PUT",
-          "action": "/users",
-          "kind": "UPDATE",
-          "rows": [
             {
-              "class": "",
-              "order": 0,
-              "fields": [
-                {
-                  "name": "id",
-                  "type": "hidden"
-                },
-                "username",
-                "email",
-                "password"
-              ]
+              "name": "username",
+              "filterable": true
+            },
+            "email",
+            {
+              "name": "createdAt",
+              "label18n": "created"
             }
           ]
         }

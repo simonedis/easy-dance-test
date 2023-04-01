@@ -1,6 +1,5 @@
 import { EntitySchema } from 'typeorm';
 import { IUser } from '../models/user.entity-model';
-
 export const UserEntitySchema = new EntitySchema<IUser>({
   name: 'user',
   columns: {
@@ -31,11 +30,6 @@ export const UserEntitySchema = new EntitySchema<IUser>({
     },
     email: { type: 'varchar', unique: true, name: 'email' },
     password: { type: 'varchar', name: 'password' },
-    type: {
-      enum: ['text'],
-      enumName: '',
-      type: 'enum',
-    },
   },
   relations: {
     roles: {

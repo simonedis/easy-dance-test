@@ -2,13 +2,13 @@ import { IClub } from './club.entity-model';
 import { IAddress } from './address.entity-model';
 export interface IParty {
   id: number;
-  uuid: any;
+  uuid: string;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
-  createdBy?: any;
-  updatedBy?: any;
-  deletedBy?: any;
+  createdBy?: string;
+  updatedBy?: string;
+  deletedBy?: string;
   title: string;
   isWaitingList: boolean;
   hidden: boolean;

@@ -17,12 +17,11 @@ import {PriceListItemEntitySchema} from "../../generated-source/entities/price-l
 export const typeormConfig: TypeOrmModuleOptions = {
   type: 'postgres',
   host: 'localhost',
-  port: Number(5432),
+  port: Number(5433),
   username: 'root',
   password: 'root',
   database: 'template',
   synchronize: Boolean(true),
-  dropSchema: true,
   entities: [
     AddressEntitySchema,
     ClubEntitySchema,

@@ -1,13 +1,15 @@
 import {
-  BaseEntityService,
+  BaseEntityService, BaseRequest,
   IEntityService,
-  TEntity,
-} from '@odda-studio/base-crud';
+  TEntity
+} from "@odda-studio/base-crud";
 import { IUser } from '../../../models/user.entity-model';
 import { UserEntitySchema } from '../../../entities/user.entity-schema';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
+import { hash } from 'bcrypt';
+const saltOrRounds = 10;
 
 @Injectable()
 export class UserService
@@ -35,6 +37,15 @@ export class UserService
     if (user != null) {
       throw 'duplicate value';
     }
+
+    item.password = await hash(item.password, saltOrRounds);
     return super.beforeCreate(item);
+  }
+
+  protected afterFindOne(
+    response: IUser | null,
+    request: BaseRequest<IUser>,
+  ): Promise<any> {
+    return super.afterFindOne(response, request);
   }
 }

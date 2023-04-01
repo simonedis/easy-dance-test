@@ -8,12 +8,14 @@ import { RoleBaseDto } from '../../role/dto/dto';
 import { UserToUserFollowerBaseDto } from '../../user-to-user-follower/dto/dto';
 import { UserToClubFollowerBaseDto } from '../../user-to-club-follower/dto/dto';
 import { ClubBaseDto } from '../../club/dto/dto';
-
 export class UserBaseDto implements IUser {
+  constructor(user: IUser) {
+    Object.assign(this, user);
+  }
   @ApiPropertyExt({ type: Number, required: false })
   id: number;
 
-  @ApiPropertyExt({ type: Object, required: false })
+  @ApiPropertyExt({ type: String, required: false })
   uuid: string;
 
   @ApiPropertyExt({ type: Date, required: false })
@@ -25,19 +27,19 @@ export class UserBaseDto implements IUser {
   @ApiPropertyExt({ type: Date, required: false })
   deletedAt: Date;
 
-  @ApiPropertyExt({ type: Object, required: false, nullable: true })
-  createdBy?: any;
+  @ApiPropertyExt({ type: String, required: false, nullable: true })
+  createdBy?: string;
 
-  @ApiPropertyExt({ type: Object, required: false, nullable: true })
-  updatedBy?: any;
+  @ApiPropertyExt({ type: String, required: false, nullable: true })
+  updatedBy?: string;
 
-  @ApiPropertyExt({ type: Object, required: false, nullable: true })
-  deletedBy?: any;
+  @ApiPropertyExt({ type: String, required: false, nullable: true })
+  deletedBy?: string;
 
   @ApiPropertyExt({ minLength: 4, type: String, nullable: false })
   username: string;
 
-  @ApiPropertyExt({ type: String, minLength: 5 })
+  @ApiPropertyExt({ type: String })
   email: string;
 
   @ApiPropertyExt({ type: String })
@@ -57,17 +59,9 @@ export class UserBaseDto implements IUser {
 
   @ApiPropertyExt({ type: () => ClubBaseDto, isArray: false })
   club?: IClub;
-  type: number;
 }
 
-enum names {
-  simone = 'simone',
-  martina = 'martina',
-}
-export class CreateUserRequestDto extends UserBaseDto {
-  @ApiPropertyExt({ type: String, minLength: 5, required: true })
-  email: string;
-}
+export class CreateUserRequestDto extends UserBaseDto {}
 
 export class CreateUserResponseDto extends UserBaseDto {}
 

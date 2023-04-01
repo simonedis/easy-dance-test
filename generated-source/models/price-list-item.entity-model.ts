@@ -2,13 +2,13 @@ import { IParty } from './party.entity-model';
 import { IProduct } from './product.entity-model';
 export interface IPriceListItem {
   id: number;
-  uuid: any;
+  uuid: string;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
-  createdBy?: any;
-  updatedBy?: any;
-  deletedBy?: any;
+  createdBy?: string;
+  updatedBy?: string;
+  deletedBy?: string;
   party?: IParty;
   product?: IProduct;
 }

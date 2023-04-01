@@ -4,13 +4,13 @@ import { IParty } from './party.entity-model';
 import { IWarehouse } from './warehouse.entity-model';
 export interface IClub {
   id: number;
-  uuid: any;
+  uuid: string;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
-  createdBy?: any;
-  updatedBy?: any;
-  deletedBy?: any;
+  createdBy?: string;
+  updatedBy?: string;
+  deletedBy?: string;
   name: string;
   cover: string;
   phone: string;

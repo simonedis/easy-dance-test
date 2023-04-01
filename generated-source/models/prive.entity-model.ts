@@ -3,13 +3,13 @@ import { IPriveOrder } from './prive-order.entity-model';
 import { IPriveCategory } from './prive-category.entity-model';
 export interface IPrive {
   id: number;
-  uuid: any;
+  uuid: string;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
-  createdBy?: any;
-  updatedBy?: any;
-  deletedBy?: any;
+  createdBy?: string;
+  updatedBy?: string;
+  deletedBy?: string;
   name: string;
   capacity: number;
   minimumBill?: number;

@@ -2,16 +2,15 @@ import { IRole } from './role.entity-model';
 import { IUserToUserFollower } from './user-to-user-follower.entity-model';
 import { IUserToClubFollower } from './user-to-club-follower.entity-model';
 import { IClub } from './club.entity-model';
-
 export interface IUser {
   id: number;
-  uuid: any;
+  uuid: string;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
-  createdBy?: any;
-  updatedBy?: any;
-  deletedBy?: any;
+  createdBy?: string;
+  updatedBy?: string;
+  deletedBy?: string;
   username: string;
   email: string;
   password: string;
@@ -20,5 +19,4 @@ export interface IUser {
   followings?: IUserToUserFollower[];
   followingClubs?: IUserToClubFollower[];
   club?: IClub;
-  type: number;
 }

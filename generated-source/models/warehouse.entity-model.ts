@@ -2,13 +2,13 @@ import { IProduct } from './product.entity-model';
 import { IClub } from './club.entity-model';
 export interface IWarehouse {
   id: number;
-  uuid: any;
+  uuid: string;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
-  createdBy?: any;
-  updatedBy?: any;
-  deletedBy?: any;
+  createdBy?: string;
+  updatedBy?: string;
+  deletedBy?: string;
   products?: IProduct[];
   club?: IClub;
 }

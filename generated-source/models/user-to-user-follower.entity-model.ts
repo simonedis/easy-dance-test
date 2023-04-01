@@ -1,13 +1,13 @@
 import { IUser } from './user.entity-model';
 export interface IUserToUserFollower {
   id: number;
-  uuid: any;
+  uuid: string;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
-  createdBy?: any;
-  updatedBy?: any;
-  deletedBy?: any;
+  createdBy?: string;
+  updatedBy?: string;
+  deletedBy?: string;
   follower?: IUser;
   followed?: IUser;
 }

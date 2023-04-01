@@ -3,13 +3,13 @@ import { IUser } from './user.entity-model';
 import { IPriveOrderRow } from './prive-order-row.entity-model';
 export interface IPriveOrder {
   id: number;
-  uuid: any;
+  uuid: string;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
-  createdBy?: any;
-  updatedBy?: any;
-  deletedBy?: any;
+  createdBy?: string;
+  updatedBy?: string;
+  deletedBy?: string;
   bill?: number;
   name: any;
   prive?: IPrive;

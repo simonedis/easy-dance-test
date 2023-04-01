@@ -6,7 +6,7 @@ export class ProductBaseDto implements IProduct {
   @ApiPropertyExt({ type: Number, required: false })
   id: number;
 
-  @ApiPropertyExt({ type: Object, required: false })
+  @ApiPropertyExt({ type: String, required: false })
   uuid: string;
 
   @ApiPropertyExt({ type: Date, required: false })
@@ -18,14 +18,14 @@ export class ProductBaseDto implements IProduct {
   @ApiPropertyExt({ type: Date, required: false })
   deletedAt: Date;
 
-  @ApiPropertyExt({ type: Object, required: false, nullable: true })
-  createdBy?: any;
+  @ApiPropertyExt({ type: String, required: false, nullable: true })
+  createdBy?: string;
 
-  @ApiPropertyExt({ type: Object, required: false, nullable: true })
-  updatedBy?: any;
+  @ApiPropertyExt({ type: String, required: false, nullable: true })
+  updatedBy?: string;
 
-  @ApiPropertyExt({ type: Object, required: false, nullable: true })
-  deletedBy?: any;
+  @ApiPropertyExt({ type: String, required: false, nullable: true })
+  deletedBy?: string;
 
   @ApiPropertyExt({ type: String })
   name: string;

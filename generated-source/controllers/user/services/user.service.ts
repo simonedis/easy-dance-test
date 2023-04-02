@@ -26,6 +26,21 @@ export class UserService
     super(entityRepository, {});
   }
 
+  replace(
+    id: number,
+    item: TEntity<IUser>,
+    request: BaseRequest<IUser>,
+  ): Promise<IUser> {
+    const _request = new BaseRequest(
+      request.filters,
+      {
+        roles: true,
+      },
+      request.fields,
+    );
+    return super.update(id, item, _request);
+  }
+
   protected async beforeCreate(item: TEntity<IUser>): Promise<any> {
     const user = await this.repository().findOne({
       where: [

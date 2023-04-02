@@ -13,7 +13,10 @@ export interface IUser {
   deletedBy?: string;
   username: string;
   email: string;
-  password: string;
+  password?: string;
+  firstName: string;
+  lastName: string;
+  birthDate: Date;
   roles?: IRole[];
   followers?: IUserToUserFollower[];
   followings?: IUserToUserFollower[];

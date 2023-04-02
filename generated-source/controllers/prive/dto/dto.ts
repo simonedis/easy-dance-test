@@ -10,7 +10,7 @@ export class PriveBaseDto implements IPrive {
   @ApiPropertyExt({ type: Number, required: false })
   id: number;
 
-  @ApiPropertyExt({ type: String, required: false })
+  @ApiPropertyExt({ type: Object, required: false })
   uuid: string;
 
   @ApiPropertyExt({ type: Date, required: false })
@@ -22,14 +22,14 @@ export class PriveBaseDto implements IPrive {
   @ApiPropertyExt({ type: Date, required: false })
   deletedAt: Date;
 
-  @ApiPropertyExt({ type: String, required: false, nullable: true })
-  createdBy?: string;
+  @ApiPropertyExt({ type: Object, required: false, nullable: true })
+  createdBy?: any;
 
-  @ApiPropertyExt({ type: String, required: false, nullable: true })
-  updatedBy?: string;
+  @ApiPropertyExt({ type: Object, required: false, nullable: true })
+  updatedBy?: any;
 
-  @ApiPropertyExt({ type: String, required: false, nullable: true })
-  deletedBy?: string;
+  @ApiPropertyExt({ type: Object, required: false, nullable: true })
+  deletedBy?: any;
 
   @ApiPropertyExt({ type: String })
   name: string;

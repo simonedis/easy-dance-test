@@ -29,7 +29,10 @@ export const UserEntitySchema = new EntitySchema<IUser>({
       unique: true,
     },
     email: { type: 'varchar', unique: true, name: 'email' },
-    password: { type: 'varchar', name: 'password' },
+    password: { type: 'varchar', nullable: true, name: 'password' },
+    firstName: { type: 'varchar', nullable: false, name: 'firstName' },
+    lastName: { type: 'varchar', nullable: false, name: 'lastName' },
+    birthDate: { type: 'timestamp', nullable: false, name: 'birthDate' },
   },
   relations: {
     roles: {

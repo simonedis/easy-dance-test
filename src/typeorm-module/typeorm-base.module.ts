@@ -14,15 +14,10 @@ import { UserToUserFollowerEntitySchema } from '../../generated-source/entities/
 import { PriveCategoryEntitySchema } from '../../generated-source/entities/prive-category.entity-schema';
 import { PriveOrderRowEntitySchema } from '../../generated-source/entities/prive-order-row.entity-schema';
 import { PriceListItemEntitySchema } from '../../generated-source/entities/price-list-item.entity-schema';
+import { config } from './ormconfig';
 
 export const typeormConfig: TypeOrmModuleOptions = {
-  type: 'postgres',
-  host: 'localhost',
-  port: Number(5432),
-  username: 'root',
-  password: 'root',
-  database: 'template',
-  synchronize: Boolean(true),
+  ...config,
   entities: [
     AddressEntitySchema,
     ClubEntitySchema,

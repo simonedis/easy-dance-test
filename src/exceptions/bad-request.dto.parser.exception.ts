@@ -32,7 +32,6 @@ export const badRequest400 = () => {
   return ApiResponse({
     status: 400,
     schema: {
-      required: [],
       properties: {
         errors: {
           additionalProperties: {

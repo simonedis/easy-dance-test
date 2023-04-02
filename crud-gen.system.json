@@ -67,7 +67,7 @@
         "users": {
           "type": "many-to-many",
           "target": "user",
-          "joinTable": true
+          "inverseSide": "roles"
         }
       }
     },
@@ -80,7 +80,7 @@
             "create": true,
             "update": true,
             "details": false,
-            "delete": false
+            "delete": true
           },
           "name": "table-user",
           "columns": [
@@ -94,14 +94,17 @@
               "name": "createdAt",
               "label18n": "created"
             }
-          ]
+          ],
+          "meta": {
+            "includes": "roles"
+          }
         }
       ],
       "forms": [
         {
           "name": "create-form-user",
           "identifier": "create-form-user",
-          "kind": "UPDATE",
+          "kind": "CREATE",
           "action": "/users",
           "method": "POST",
           "rows": [
@@ -131,8 +134,67 @@
                 },
                 "roles"
               ]
+            },
+            {
+              "class": "",
+              "fields": [
+                "firstName",
+                "lastName",
+                "birthDate"
+              ]
             }
-          ]
+          ],
+          "meta": {
+            "includes": "roles"
+          }
+        },
+        {
+          "name": "update-form-user",
+          "identifier": "update-form-user",
+          "kind": "UPDATE",
+          "action": "/users",
+          "method": "PUT",
+          "rows": [
+            {
+              "class": "",
+              "fields": [
+                {
+                  "name": "username",
+                  "type": "text",
+                  "meta": {
+                    "dataType": "text"
+                  }
+                },
+                {
+                  "name": "password",
+                  "type": "text",
+                  "meta": {
+                    "dataType": "password"
+                  }
+                },
+                {
+                  "name": "email",
+                  "type": "text",
+                  "meta": {
+                    "dataType": "email"
+                  }
+                },
+                "roles"
+              ]
+            },
+            {
+              "class": "",
+              "fields": [
+                "firstName",
+                "lastName",
+                "birthDate",
+                "id"
+              ]
+            }
+          ],
+          "meta": {
+            "includes": "roles"
+          }
         }
       ],
       "columns": {
@@ -156,7 +218,7 @@
           "nullable": false,
           "required": true
         },
-        "lstName": {
+        "lastName": {
           "type": "varchar",
           "nullable": false,
           "required": true

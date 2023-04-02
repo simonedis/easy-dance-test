@@ -24,7 +24,7 @@ export const RoleEntitySchema = new EntitySchema<IRole>({
     name: { type: 'varchar', name: 'name' },
   },
   relations: {
-    users: { type: 'many-to-many', target: 'user', joinTable: true },
+    users: { type: 'many-to-many', target: 'user', inverseSide: 'roles' },
   },
   name: 'role',
   tableName: 'role',

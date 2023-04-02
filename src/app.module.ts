@@ -4,10 +4,10 @@ import { AppService } from './app.service';
 import { EntityHttpModule } from './entity-http-module/entity-http.module';
 import { TypeOrmBaseModule } from './typeorm-module/typeorm-base.module';
 import { CmsConfiguration } from '@odda-studio/base-crud-decorators';
-import { AuthController } from './modules/auth/controllers/auth/auth.controller';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtAuthGuard } from './modules/auth/canActivate.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { RoleService } from '../generated-source/controllers/role/services/role.service';
 
 @Module({
   imports: [
@@ -37,4 +37,6 @@ import { APP_GUARD } from '@nestjs/core';
     },
   ],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(r: RoleService) {}
+}

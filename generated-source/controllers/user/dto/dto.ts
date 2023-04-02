@@ -1,13 +1,5 @@
 import { ApiPropertyExt } from '@odda-studio/base-crud-decorators';
 import { IUser } from '../../../models/user.entity-model';
-import { IRole } from '../../../models/role.entity-model';
-import { IUserToUserFollower } from '../../../models/user-to-user-follower.entity-model';
-import { IUserToClubFollower } from '../../../models/user-to-club-follower.entity-model';
-import { IClub } from '../../../models/club.entity-model';
-import { RoleBaseDto } from '../../role/dto/dto';
-import { UserToUserFollowerBaseDto } from '../../user-to-user-follower/dto/dto';
-import { UserToClubFollowerBaseDto } from '../../user-to-club-follower/dto/dto';
-import { ClubBaseDto } from '../../club/dto/dto';
 
 export class UserBaseDto implements IUser {
   @ApiPropertyExt({ type: Number, required: false })
@@ -15,38 +7,45 @@ export class UserBaseDto implements IUser {
 
   @ApiPropertyExt({ type: String, required: false })
   uuid: string;
+
   @ApiPropertyExt({ type: Date, required: false })
   createdAt: Date;
+
   @ApiPropertyExt({ type: Date, required: false })
   updatedAt: Date;
+
   @ApiPropertyExt({ type: Date, required: false })
   deletedAt: Date;
+
   @ApiPropertyExt({ type: String, required: false, nullable: true })
   createdBy?: string;
+
   @ApiPropertyExt({ type: String, required: false, nullable: true })
   updatedBy?: string;
+
   @ApiPropertyExt({ type: String, required: false, nullable: true })
   deletedBy?: string;
+
   @ApiPropertyExt({ minLength: 4, type: String, nullable: false })
   username: string;
+
   @ApiPropertyExt({ type: String })
   email: string;
-  @ApiPropertyExt({ type: String })
-  password: string;
-  @ApiPropertyExt({ type: () => RoleBaseDto, isArray: true })
-  roles?: IRole[];
-  @ApiPropertyExt({ type: () => UserToUserFollowerBaseDto, isArray: true })
-  followers?: IUserToUserFollower[];
-  @ApiPropertyExt({ type: () => UserToUserFollowerBaseDto, isArray: true })
-  followings?: IUserToUserFollower[];
-  @ApiPropertyExt({ type: () => UserToClubFollowerBaseDto, isArray: true })
-  followingClubs?: IUserToClubFollower[];
-  @ApiPropertyExt({ type: () => ClubBaseDto, isArray: false })
-  club?: IClub;
 
-  constructor(user: IUser) {
-    Object.assign(this, user);
-  }
+  @ApiPropertyExt({ type: String, nullable: true })
+  password?: string;
+
+  @ApiPropertyExt({ type: String, required: true, nullable: false })
+  firstName: string;
+
+  @ApiPropertyExt({ type: String, required: true, nullable: false })
+  lastName: string;
+
+  @ApiPropertyExt({ type: Date, required: true, nullable: false })
+  birthDate: Date;
+
+  @ApiPropertyExt({ type: () => Number })
+  role: number;
 }
 
 export class CreateUserRequestDto extends UserBaseDto {}

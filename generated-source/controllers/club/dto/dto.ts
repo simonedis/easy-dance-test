@@ -12,7 +12,7 @@ export class ClubBaseDto implements IClub {
   @ApiPropertyExt({ type: Number, required: false })
   id: number;
 
-  @ApiPropertyExt({ type: String, required: false })
+  @ApiPropertyExt({ type: Object, required: false })
   uuid: string;
 
   @ApiPropertyExt({ type: Date, required: false })
@@ -24,14 +24,14 @@ export class ClubBaseDto implements IClub {
   @ApiPropertyExt({ type: Date, required: false })
   deletedAt: Date;
 
-  @ApiPropertyExt({ type: String, required: false, nullable: true })
-  createdBy?: string;
+  @ApiPropertyExt({ type: Object, required: false, nullable: true })
+  createdBy?: any;
 
-  @ApiPropertyExt({ type: String, required: false, nullable: true })
-  updatedBy?: string;
+  @ApiPropertyExt({ type: Object, required: false, nullable: true })
+  updatedBy?: any;
 
-  @ApiPropertyExt({ type: String, required: false, nullable: true })
-  deletedBy?: string;
+  @ApiPropertyExt({ type: Object, required: false, nullable: true })
+  deletedBy?: any;
 
   @ApiPropertyExt({ maxLength: 350, type: String })
   name: string;

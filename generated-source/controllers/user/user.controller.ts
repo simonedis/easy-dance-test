@@ -23,5 +23,4 @@ export class UserController
       b.email = a.email;
     });
   }
-
 }
